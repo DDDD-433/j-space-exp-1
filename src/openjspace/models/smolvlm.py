@@ -88,9 +88,7 @@ class SmolVLMAdapter(HFDecoderAdapter):
         self._scale_factor = int(getattr(config, "scale_factor", 1) or 1)
         # Ids of the tile-delimiter markers (row/col/global/fake).
         added = getattr(processor.tokenizer, "added_tokens_encoder", {}) or {}
-        self._boundary_ids = {
-            tid for tok, tid in added.items() if _BOUNDARY_RE.search(tok)
-        }
+        self._boundary_ids = {tid for tok, tid in added.items() if _BOUNDARY_RE.search(tok)}
         self._special_ids = set(getattr(processor.tokenizer, "all_special_ids", []) or [])
 
     # ------------------------------------------------------------------ #
@@ -173,9 +171,7 @@ class SmolVLMAdapter(HFDecoderAdapter):
             )
         return positions
 
-    def _assign_patch_geometry(
-        self, positions: list[PositionMetadata]
-    ) -> list[tuple[int, int]]:
+    def _assign_patch_geometry(self, positions: list[PositionMetadata]) -> list[tuple[int, int]]:
         """Group consecutive image-token runs into tiles and lay each out on a
         square grid (approximate: each token is a pixel-shuffled patch group).
 
@@ -271,6 +267,4 @@ def load_smolvlm_adapter(
         ),
     )
     hf_model.to(device)
-    return SmolVLMAdapter(
-        hf_model, processor, model_id=model_id, model_revision=revision
-    )
+    return SmolVLMAdapter(hf_model, processor, model_id=model_id, model_revision=revision)

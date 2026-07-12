@@ -126,7 +126,7 @@ def main() -> None:
         cell = result.cell(args.layer, index)
         if cell is None:
             return
-        top = ", ".join(f"{c.token_display!r}" for c in cell.jlens_top[:args.top_k])
+        top = ", ".join(f"{c.token_display!r}" for c in cell.jlens_top[: args.top_k])
         print(f"  {label} (pos {index}): {top}")
 
     print(f"\nTop J-lens concepts at layer {args.layer}:")
