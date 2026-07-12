@@ -33,7 +33,7 @@ class _MockTokenizer:
     def __call__(self, text, *, return_tensors="pt", truncation=True, max_length=128):
         from types import SimpleNamespace
 
-        ids = [0, *[1 + b % 90 for b in text.encode()][:max_length - 1]]
+        ids = [0, *[1 + b % 90 for b in text.encode()][: max_length - 1]]
         return SimpleNamespace(input_ids=torch.tensor([ids]))
 
     def decode(self, ids, **_kw):

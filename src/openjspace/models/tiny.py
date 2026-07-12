@@ -51,7 +51,7 @@ class ByteTokenizer:
 
     def encode(self, text: str, *, max_length: int = 128) -> list[int]:
         span = self.vocab_size - 2
-        return [self.bos_token_id, *[1 + b % span for b in text.encode()][:max_length - 1]]
+        return [self.bos_token_id, *[1 + b % span for b in text.encode()][: max_length - 1]]
 
     def decode_one(self, token_id: int) -> str:
         if token_id == self.bos_token_id:
