@@ -87,10 +87,11 @@ MODEL_FAMILIES: tuple[ModelFamily, ...] = (
     ModelFamily(
         name="SmolVLM / SmolVLM2",
         kind="vlm",
-        status="experimental",
+        status="tested",
         architectures=("SmolVLMForConditionalGeneration", "Idefics3ForConditionalGeneration"),
         example_id="HuggingFaceTB/SmolVLM-256M-Instruct",
-        notes="Pixel-shuffle connector: patch mapping is approximate",
+        notes="Pixel-shuffle connector: patch mapping is approximate; "
+        "integration-tested on SmolVLM-256M-Instruct",
     ),
     ModelFamily(
         name="Qwen2.5-VL / Qwen3-VL",
