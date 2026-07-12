@@ -35,10 +35,10 @@ MODEL_FAMILIES: tuple[ModelFamily, ...] = (
     ModelFamily(
         name="Qwen2 / Qwen2.5 (text)",
         kind="text",
-        status="experimental",
+        status="tested",
         architectures=("Qwen2ForCausalLM",),
         example_id="Qwen/Qwen2.5-0.5B-Instruct",
-        notes="Primary development family",
+        notes="Primary development family; integration-tested on Qwen2.5-0.5B-Instruct",
     ),
     ModelFamily(
         name="Qwen3 (text)",
@@ -177,6 +177,7 @@ def load_model(
     kind = detect_model_kind(config)
     torch_dtype = resolve_dtype(dtype, resolved_device)
 
+    adapter: LensModelAdapter
     if kind == "vlm":
         from openjspace.models.smolvlm import load_smolvlm_adapter
 
@@ -207,8 +208,18 @@ def load_model(
     tokenizer = AutoTokenizer.from_pretrained(
         model_id, revision=revision, trust_remote_code=trust_remote_code
     )
-    try:
-        adapter = HFDecoderAdapter(hf_model, tokenizer, model_id=model_id, model_revision=revision)
-    except UnsupportedArchitectureError:
-        raise
+    architectures = tuple(getattr(config, "architectures", None) or [])
+    if any(a in ("Qwen2ForCausalLM", "Qwen3ForCausalLM") for a in architectures):
+        from openjspace.models.qwen_decoder import QwenDecoderAdapter
+
+        adapter = QwenDecoderAdapter(
+            hf_model, tokenizer, model_id=model_id, model_revision=revision
+        )
+    else:
+        try:
+            adapter = HFDecoderAdapter(
+                hf_model, tokenizer, model_id=model_id, model_revision=revision
+            )
+        except UnsupportedArchitectureError:
+            raise
     return LoadedModel(adapter=adapter, kind="text", device=resolved_device, dtype=str(torch_dtype))

@@ -73,6 +73,7 @@ disallow_untyped_defs = false
 testpaths = ["tests"]
 markers = [
     "integration: tests that download real model weights (deselect with '-m \"not integration\"')",
+    "slow: integration tests that take several minutes on CPU",
 ]
 addopts = "-m 'not integration'"
 filterwarnings = ["ignore::DeprecationWarning"]
