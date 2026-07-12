@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenJSpace report — # This Python function is supposed to return the sum of a an…</title>
+<style>
+:root {
+  --bg: #0f1117; --panel: #171a23; --border: #2a2f3d; --text: #e6e8ee;
+  --muted: #9aa1b2; --accent: #6ea8fe; --warn: #f0b429;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+header h1 { margin: 0 0 4px; font-size: 18px; }
+header .meta { color: var(--muted); font-size: 12px; }
+.disclaimer { margin: 10px 24px; padding: 10px 14px; border: 1px solid var(--warn);
+  border-radius: 6px; color: var(--warn); font-size: 12px; background: rgba(240,180,41,.06); }
+.warnings { margin: 0 24px 10px; color: var(--warn); font-size: 12px; }
+main { display: flex; gap: 16px; padding: 12px 24px 32px; align-items: flex-start; }
+#gridwrap { overflow: auto; max-height: 72vh; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--panel); flex: 1 1 auto; }
+table.grid { border-collapse: collapse; font-size: 11px; }
+table.grid th, table.grid td { border: 1px solid var(--border); padding: 2px 6px;
+  white-space: nowrap; text-align: center; }
+table.grid th { position: sticky; background: #1d2130; z-index: 2; }
+table.grid thead th { top: 0; }
+table.grid tbody th { left: 0; }
+td.cell { cursor: pointer; min-width: 52px; max-width: 110px; overflow: hidden;
+  text-overflow: ellipsis; color: #dfe3ec; }
+td.cell.selected { outline: 2px solid var(--accent); outline-offset: -2px; }
+td.cell.mod-image_token { border-bottom: 2px solid #59c9a5; }
+td.cell.mod-image_boundary { border-bottom: 2px dashed #59c9a5; }
+td.cell.mod-special { border-bottom: 2px dotted #b48ef0; }
+tr.output-row th, tr.output-row td { border-top: 2px solid var(--accent); }
+#side { flex: 0 0 380px; display: flex; flex-direction: column; gap: 12px; }
+.panel { border: 1px solid var(--border); border-radius: 8px; background: var(--panel);
+  padding: 12px 14px; }
+.panel h2 { margin: 0 0 8px; font-size: 13px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .05em; }
+table.detail { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.detail td, table.detail th { padding: 2px 6px; text-align: left;
+  border-bottom: 1px solid var(--border); }
+table.detail th { color: var(--muted); font-weight: 500; }
+.tok { font-family: ui-monospace, monospace; background: #232838; border-radius: 4px;
+  padding: 0 4px; }
+.mutetext { color: var(--muted); font-size: 12px; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 12px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; word-break: break-all; }
+#tooltip { position: fixed; display: none; z-index: 10; background: #1d2130;
+  border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px;
+  font-size: 11px; max-width: 340px; pointer-events: none; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+<header>
+  <h1>OpenJSpace report — # This Python function is supposed to return the sum of a an…</h1>
+  <div class="meta" id="runmeta"></div>
+</header>
+<div class="disclaimer" id="disclaimer"></div>
+<div class="warnings" id="warnings"></div>
+<main>
+  <div id="gridwrap"></div>
+  <div id="side">
+    <div class="panel"><h2>Selected cell</h2><div id="celldetail" class="mutetext">
+      Click a cell in the grid to inspect its top J-lens concepts.</div></div>
+    <div class="panel"><h2>Lens comparison</h2><div id="comparison" class="mutetext">—</div></div>
+    <div class="panel"><h2>Run metadata</h2><dl class="kv" id="metakv"></dl></div>
+  </div>
+</main>
+<div id="tooltip"></div>
+<script id="run-data" type="application/json">{"schema_version":1,"metadata":{"run_id":"a285086c6682","created_at":"2026-07-12T18:13:52+00:00","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_architecture":"Qwen2ForCausalLM","model_kind":"text","device":"cpu","dtype":"torch.float32","lens_path":"/workspace/artifacts/qwen2.5-0.5b-instruct-demo","lens_metadata":{"format_version":1,"method":"jacobian_lens","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_revision":null,"model_architecture":"Qwen2ForCausalLM","tokenizer_id":"Qwen/Qwen2.5-0.5B-Instruct","tokenizer_revision":null,"hidden_size":896,"vocab_size":151936,"n_layers":24,"source_layers":[2,4,8,12,16,20],"target_layer":23,"residual_location":"block_output","sequence_length":64,"skip_first_positions":16,"number_of_prompts":24,"number_of_valid_positions":1128,"dtype_used_for_model":"torch.float32","dtype_used_for_accumulation":"float32","fitting_dataset":"wikitext (num_prompts=24, seed=0, shard=0/1)","created_at":"2026-07-12T18:11:51+00:00","library_versions":{"python":"3.12.3","torch":"2.13.0+cpu","safetensors":"0.8.0","transformers":"5.13.1"},"notes":""},"prompt":"# This Python function is supposed to return the sum of a and b.\ndef add(a, b):\n    return a - b\n# The bug is that it uses the wrong","used_chat_template":false,"layers":[2,4,8,12,16,20,23],"top_k":10,"n_positions":1,"patch_mapping":"unavailable","disclaimer":"Jacobian-lens readouts are approximate concept readouts: corpus-averaged, linearized transports of residual-stream activations decoded through the model's own unembedding. They surface verbalizable activation directions — not literal 'thoughts' — and scores are rankings, not calibrated probabilities. Causal claims require interventions, not visualization.","warnings":[]},"positions":[{"index":0,"modality":"text","token_id":2,"token_text":"#","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":1,"modality":"text","token_id":1096,"token_text":" This","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":2,"modality":"text","token_id":13027,"token_text":" Python","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":3,"modality":"text","token_id":729,"token_text":" function","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":4,"modality":"text","token_id":374,"token_text":" is","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":5,"modality":"text","token_id":9966,"token_text":" supposed","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":6,"modality":"text","token_id":311,"token_text":" to","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":7,"modality":"text","token_id":470,"token_text":" return","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":8,"modality":"text","token_id":279,"token_text":" the","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":9,"modality":"text","token_id":2629,"token_text":" sum","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":10,"modality":"text","token_id":315,"token_text":" of","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":11,"modality":"text","token_id":264,"token_text":" a","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":12,"modality":"text","token_id":323,"token_text":" and","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":13,"modality":"text","token_id":293,"token_text":" b","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":14,"modality":"text","token_id":624,"token_text":".\n","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":15,"modality":"text","token_id":750,"token_text":"def","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":16,"modality":"text","token_id":912,"token_text":" add","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":17,"modality":"text","token_id":2877,"token_text":"(a","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":18,"modality":"text","token_id":11,"token_text":",","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":19,"modality":"text","token_id":293,"token_text":" b","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":20,"modality":"text","token_id":982,"token_text":"):\n","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":21,"modality":"text","token_id":262,"token_text":"   ","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":22,"modality":"text","token_id":470,"token_text":" return","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":23,"modality":"text","token_id":264,"token_text":" a","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":24,"modality":"text","token_id":481,"token_text":" -","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":25,"modality":"text","token_id":293,"token_text":" b","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":26,"modality":"text","token_id":198,"token_text":"\n","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":27,"modality":"text","token_id":2,"token_text":"#","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":28,"modality":"text","token_id":576,"token_text":" The","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":29,"modality":"text","token_id":9876,"token_text":" bug","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":30,"modality":"text","token_id":374,"token_text":" is","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":31,"modality":"text","token_id":429,"token_text":" that","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":32,"modality":"text","token_id":432,"token_text":" it","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":33,"modality":"text","token_id":5711,"token_text":" uses","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":34,"modality":"text","token_id":279,"token_text":" the","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":35,"modality":"text","token_id":4969,"token_text":" wrong","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null}],"cells":[{"layer":2,"position":35,"jlens_top":[{"token_id":82,"token_text":"s","token_display":"s","score":21.612661361694336,"normalized_score":1.0},{"token_id":83,"token_text":"t","token_display":"t","score":15.58875560760498,"normalized_score":0.8149999380111694},{"token_id":68,"token_text":"e","token_display":"e","score":14.83859634399414,"normalized_score":0.7919618487358093},{"token_id":77,"token_text":"n","token_display":"n","score":13.57533073425293,"normalized_score":0.7531656622886658},{"token_id":288,"token_text":"es","token_display":"es","score":13.337018966674805,"normalized_score":0.7458468675613403},{"token_id":287,"token_text":"ing","token_display":"ing","score":12.729602813720703,"normalized_score":0.7271925806999207},{"token_id":67,"token_text":"d","token_display":"d","score":12.626137733459473,"normalized_score":0.7240150570869446},{"token_id":88,"token_text":"y","token_display":"y","score":12.541561126708984,"normalized_score":0.7214176058769226},{"token_id":7412,"token_text":" guy","token_display":" guy","score":12.333248138427734,"normalized_score":0.7150201201438904},{"token_id":6259,"token_text":" stuff","token_display":" stuff","score":12.288403511047363,"normalized_score":0.7136428952217102}],"logit_lens_top":[{"token_id":145189,"token_text":"㎏","token_display":"㎏","score":18.4240665435791,"normalized_score":1.0},{"token_id":112330,"token_text":"一团","token_display":"一团","score":13.683208465576172,"normalized_score":0.8582905530929565},{"token_id":108630,"token_text":"包容","token_display":"包容","score":13.076350212097168,"normalized_score":0.8401509523391724},{"token_id":10352,"token_text":"ipl","token_display":"ipl","score":12.862274169921875,"normalized_score":0.8337519764900208},{"token_id":98888,"token_text":" traf","token_display":" traf","score":12.642733573913574,"normalized_score":0.8271896839141846},{"token_id":86410,"token_text":".EventSystems","token_display":".EventSystems","score":12.411389350891113,"normalized_score":0.8202745318412781},{"token_id":137554,"token_text":"между","token_display":"между","score":12.248923301696777,"normalized_score":0.8154182434082031},{"token_id":86172,"token_text":" tik","token_display":" tik","score":11.975773811340332,"normalized_score":0.8072535395622253},{"token_id":665,"token_text":"te","token_display":"te","score":11.942834854125977,"normalized_score":0.8062689900398254},{"token_id":140575,"token_text":"информацион","token_display":"информацион","score":11.848248481750488,"normalized_score":0.8034416437149048}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.7293233082706767},"activation_norm":9.655559539794922,"transported_norm":13.360161781311035,"is_model_output":false},{"layer":4,"position":35,"jlens_top":[{"token_id":82,"token_text":"s","token_display":"s","score":18.072355270385742,"normalized_score":1.0},{"token_id":83,"token_text":"t","token_display":"t","score":14.410332679748535,"normalized_score":0.8681667447090149},{"token_id":49987,"token_text":" \n        \n","token_display":" \\n        \\n","score":14.082405090332031,"normalized_score":0.8563613891601562},{"token_id":68,"token_text":"e","token_display":"e","score":13.303725242614746,"normalized_score":0.8283288478851318},{"token_id":67,"token_text":"d","token_display":"d","score":13.042327880859375,"normalized_score":0.8189184665679932},{"token_id":77,"token_text":"n","token_display":"n","score":12.760958671569824,"normalized_score":0.8087891936302185},{"token_id":7110,"token_text":".\\","token_display":".\\","score":12.701372146606445,"normalized_score":0.8066440224647522},{"token_id":1124,"token_text":" \\","token_display":" \\","score":12.404485702514648,"normalized_score":0.7959560751914978},{"token_id":14767,"token_text":"yyyy","token_display":"yyyy","score":12.386123657226562,"normalized_score":0.7952950596809387},{"token_id":88,"token_text":"y","token_display":"y","score":12.300751686096191,"normalized_score":0.7922216057777405}],"logit_lens_top":[{"token_id":145189,"token_text":"㎏","token_display":"㎏","score":21.239173889160156,"normalized_score":1.0},{"token_id":144916,"token_text":"◀","token_display":"◀","score":15.477523803710938,"normalized_score":0.8284652829170227},{"token_id":118407,"token_text":"一回事","token_display":"一回事","score":15.1643648147583,"normalized_score":0.8191420435905457},{"token_id":64638,"token_text":"KC","token_display":"KC","score":15.048969268798828,"normalized_score":0.8157064914703369},{"token_id":144769,"token_text":"릎","token_display":"릎","score":14.833014488220215,"normalized_score":0.8092770576477051},{"token_id":137554,"token_text":"между","token_display":"между","score":14.811454772949219,"normalized_score":0.8086352348327637},{"token_id":23709,"token_text":"eness","token_display":"eness","score":14.37507438659668,"normalized_score":0.7956433892250061},{"token_id":4979,"token_text":"dest","token_display":"dest","score":14.126608848571777,"normalized_score":0.7882461547851562},{"token_id":22897,"token_text":"iating","token_display":"iating","score":14.109357833862305,"normalized_score":0.7877325415611267},{"token_id":140575,"token_text":"информацион","token_display":"информацион","score":13.774682998657227,"normalized_score":0.7777686715126038}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.7729323308270677},"activation_norm":11.671778678894043,"transported_norm":16.56665802001953,"is_model_output":false},{"layer":8,"position":35,"jlens_top":[{"token_id":48116,"token_text":".”\n","token_display":".”\\n","score":14.607872009277344,"normalized_score":1.0},{"token_id":4969,"token_text":" wrong","token_display":" wrong","score":14.330537796020508,"normalized_score":0.9883346557617188},{"token_id":22551,"token_text":" bugs","token_display":" bugs","score":14.112432479858398,"normalized_score":0.9791606068611145},{"token_id":7412,"token_text":" guy","token_display":" guy","score":13.947376251220703,"normalized_score":0.9722179174423218},{"token_id":6366,"token_text":" computer","token_display":" computer","score":13.625316619873047,"normalized_score":0.9586712718009949},{"token_id":17176,"token_text":" shit","token_display":" shit","score":13.070130348205566,"normalized_score":0.9353188276290894},{"token_id":35550,"token_text":" crap","token_display":" crap","score":13.047369956970215,"normalized_score":0.9343613386154175},{"token_id":82,"token_text":"s","token_display":"s","score":12.940648078918457,"normalized_score":0.929872453212738},{"token_id":21966,"token_text":" screw","token_display":" screw","score":12.889594078063965,"normalized_score":0.9277248978614807},{"token_id":12645,"token_text":" machines","token_display":" machines","score":12.688065528869629,"normalized_score":0.9192482233047485}],"logit_lens_top":[{"token_id":118407,"token_text":"一回事","token_display":"一回事","score":14.936323165893555,"normalized_score":1.0},{"token_id":127458,"token_text":"ило","token_display":"ило","score":14.35095500946045,"normalized_score":0.9802597165107727},{"token_id":15408,"token_text":"dam","token_display":"dam","score":13.748339653015137,"normalized_score":0.9599377512931824},{"token_id":119302,"token_text":"叼","token_display":"叼","score":13.30970573425293,"normalized_score":0.9451456665992737},{"token_id":109453,"token_text":"牌子","token_display":"牌子","score":13.202993392944336,"normalized_score":0.9415470361709595},{"token_id":137213,"token_text":"ирующ","token_display":"ирующ","score":13.201732635498047,"normalized_score":0.9415044784545898},{"token_id":145189,"token_text":"㎏","token_display":"㎏","score":13.038735389709473,"normalized_score":0.9360077381134033},{"token_id":2243,"token_text":"format","token_display":"format","score":12.944497108459473,"normalized_score":0.932829737663269},{"token_id":1545,"token_text":"icense","token_display":"icense","score":12.884915351867676,"normalized_score":0.9308204650878906},{"token_id":144769,"token_text":"릎","token_display":"릎","score":12.752908706665039,"normalized_score":0.9263688325881958}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.7082706766917293},"activation_norm":16.084819793701172,"transported_norm":22.001188278198242,"is_model_output":false},{"layer":12,"position":35,"jlens_top":[{"token_id":144534,"token_text":"😁","token_display":"😁","score":15.308241844177246,"normalized_score":1.0},{"token_id":78427,"token_text":"\",__","token_display":"\",__","score":14.903902053833008,"normalized_score":0.9830914735794067},{"token_id":144713,"token_text":"😅","token_display":"😅","score":14.171295166015625,"normalized_score":0.952455461025238},{"token_id":49174,"token_text":"!';\n","token_display":"!';\\n","score":13.961091995239258,"normalized_score":0.9436653256416321},{"token_id":24727,"token_text":"!”\n\n","token_display":"!”\\n\\n","score":13.677289009094238,"normalized_score":0.9317972660064697},{"token_id":4969,"token_text":" wrong","token_display":" wrong","score":13.611830711364746,"normalized_score":0.9290599822998047},{"token_id":87685,"token_text":".'''\n","token_display":".'''\\n","score":13.582478523254395,"normalized_score":0.9278325438499451},{"token_id":22551,"token_text":" bugs","token_display":" bugs","score":13.566617012023926,"normalized_score":0.9271692037582397},{"token_id":7412,"token_text":" guy","token_display":" guy","score":13.50438404083252,"normalized_score":0.9245668053627014},{"token_id":19482,"token_text":" syntax","token_display":" syntax","score":13.497031211853027,"normalized_score":0.9242593050003052}],"logit_lens_top":[{"token_id":135486,"token_text":" atrás","token_display":" atrás","score":14.176891326904297,"normalized_score":1.0},{"token_id":115476,"token_text":"看了一眼","token_display":"看了一眼","score":14.085554122924805,"normalized_score":0.9965813755989075},{"token_id":127717,"token_text":"ракти","token_display":"ракти","score":13.903985023498535,"normalized_score":0.9897852540016174},{"token_id":137554,"token_text":"между","token_display":"между","score":13.739657402038574,"normalized_score":0.9836345314979553},{"token_id":127458,"token_text":"ило","token_display":"ило","score":13.427679061889648,"normalized_score":0.9719573259353638},{"token_id":119457,"token_text":"跤","token_display":"跤","score":12.92355728149414,"normalized_score":0.9530882239341736},{"token_id":138788,"token_text":" تماما","token_display":" تماما","score":12.879294395446777,"normalized_score":0.9514315128326416},{"token_id":86410,"token_text":".EventSystems","token_display":".EventSystems","score":12.79011058807373,"normalized_score":0.9480933547019958},{"token_id":74287,"token_text":" interfering","token_display":" interfering","score":12.594982147216797,"normalized_score":0.9407897591590881},{"token_id":145189,"token_text":"㎏","token_display":"㎏","score":12.37321949005127,"normalized_score":0.9324893355369568}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.8030075187969925},"activation_norm":16.935440063476562,"transported_norm":27.573585510253906,"is_model_output":false},{"layer":16,"position":35,"jlens_top":[{"token_id":78427,"token_text":"\",__","token_display":"\",__","score":21.68357276916504,"normalized_score":1.0},{"token_id":19482,"token_text":" syntax","token_display":" syntax","score":20.407262802124023,"normalized_score":0.9543027877807617},{"token_id":46634,"token_text":" datatype","token_display":" datatype","score":19.933387756347656,"normalized_score":0.9373360872268677},{"token_id":11127,"token_text":" inputs","token_display":" inputs","score":18.792993545532227,"normalized_score":0.8965051770210266},{"token_id":144534,"token_text":"😁","token_display":"😁","score":18.66914939880371,"normalized_score":0.8920710682868958},{"token_id":88048,"token_text":"=Value","token_display":"=Value","score":18.623437881469727,"normalized_score":0.8904343843460083},{"token_id":82779,"token_text":"-syntax","token_display":"-syntax","score":18.60987091064453,"normalized_score":0.8899486660957336},{"token_id":140393,"token_text":" modalità","token_display":" modalità","score":18.521398544311523,"normalized_score":0.8867809772491455},{"token_id":144713,"token_text":"😅","token_display":"😅","score":18.367359161376953,"normalized_score":0.8812656998634338},{"token_id":97616,"token_text":" specifier","token_display":" specifier","score":18.297317504882812,"normalized_score":0.8787579536437988}],"logit_lens_top":[{"token_id":109963,"token_text":"类型的","token_display":"类型的","score":13.577054023742676,"normalized_score":1.0},{"token_id":117265,"token_text":"的方式来","token_display":"的方式来","score":12.377223014831543,"normalized_score":0.9467945098876953},{"token_id":68805,"token_text":"格式","token_display":"格式","score":11.839380264282227,"normalized_score":0.9229443669319153},{"token_id":111372,"token_text":"抽象","token_display":"抽象","score":11.824905395507812,"normalized_score":0.9223024845123291},{"token_id":46634,"token_text":" datatype","token_display":" datatype","score":11.797506332397461,"normalized_score":0.9210875034332275},{"token_id":145139,"token_text":"㎜","token_display":"㎜","score":11.751436233520508,"normalized_score":0.919044554233551},{"token_id":145189,"token_text":"㎏","token_display":"㎏","score":11.617236137390137,"normalized_score":0.9130935668945312},{"token_id":118419,"token_text":"专业从事","token_display":"专业从事","score":11.420612335205078,"normalized_score":0.9043744802474976},{"token_id":114212,"token_text":"职能部门","token_display":"职能部门","score":11.231761932373047,"normalized_score":0.8960000872612},{"token_id":31905,"token_text":"类型","token_display":"类型","score":11.164957046508789,"normalized_score":0.8930376768112183}],"comparison":{"topk_overlap":0.1,"rank_correlation":-0.5245614035087718},"activation_norm":25.497148513793945,"transported_norm":34.67595291137695,"is_model_output":false},{"layer":20,"position":35,"jlens_top":[{"token_id":19482,"token_text":" syntax","token_display":" syntax","score":24.75659942626953,"normalized_score":1.0},{"token_id":5733,"token_text":" parameter","token_display":" parameter","score":23.166770935058594,"normalized_score":0.949476420879364},{"token_id":3890,"token_text":" variable","token_display":" variable","score":23.060266494750977,"normalized_score":0.9460917115211487},{"token_id":7332,"token_text":" variables","token_display":" variables","score":22.533920288085938,"normalized_score":0.9293648600578308},{"token_id":5029,"token_text":" parameters","token_display":" parameters","score":22.15696907043457,"normalized_score":0.9173855781555176},{"token_id":46634,"token_text":" datatype","token_display":" datatype","score":21.163755416870117,"normalized_score":0.8858219981193542},{"token_id":16174,"token_text":" keyword","token_display":" keyword","score":20.666950225830078,"normalized_score":0.8700339198112488},{"token_id":5693,"token_text":" argument","token_display":" argument","score":20.335786819458008,"normalized_score":0.8595097661018372},{"token_id":44197,"token_text":" notation","token_display":" notation","score":20.27120590209961,"normalized_score":0.8574574589729309},{"token_id":27213,"token_text":" operand","token_display":" operand","score":20.049114227294922,"normalized_score":0.8503995537757874}],"logit_lens_top":[{"token_id":19482,"token_text":" syntax","token_display":" syntax","score":14.414219856262207,"normalized_score":1.0},{"token_id":46634,"token_text":" datatype","token_display":" datatype","score":13.101715087890625,"normalized_score":0.9467906355857849},{"token_id":109963,"token_text":"类型的","token_display":"类型的","score":13.031851768493652,"normalized_score":0.9439584016799927},{"token_id":115857,"token_text":"变量","token_display":"变量","score":12.605154991149902,"normalized_score":0.9266600012779236},{"token_id":3890,"token_text":" variable","token_display":" variable","score":12.430109977722168,"normalized_score":0.9195635914802551},{"token_id":117206,"token_text":"语法","token_display":"语法","score":12.047158241271973,"normalized_score":0.904038667678833},{"token_id":943,"token_text":" type","token_display":" type","score":12.028571128845215,"normalized_score":0.9032851457595825},{"token_id":5693,"token_text":" argument","token_display":" argument","score":11.978684425354004,"normalized_score":0.9012627005577087},{"token_id":32804,"token_text":"函数","token_display":"函数","score":11.939208030700684,"normalized_score":0.8996623158454895},{"token_id":39907,"token_text":"方法","token_display":"方法","score":11.810785293579102,"normalized_score":0.8944560885429382}],"comparison":{"topk_overlap":0.4,"rank_correlation":-0.01764705882352941},"activation_norm":52.732418060302734,"transported_norm":60.55668258666992,"is_model_output":false},{"layer":23,"position":35,"jlens_top":[{"token_id":3890,"token_text":" variable","token_display":" variable","score":18.688796997070312,"normalized_score":1.0},{"token_id":5675,"token_text":" operator","token_display":" operator","score":18.280162811279297,"normalized_score":0.9863893985748291},{"token_id":729,"token_text":" function","token_display":" function","score":18.249126434326172,"normalized_score":0.9853556156158447},{"token_id":821,"token_text":" data","token_display":" data","score":17.435009002685547,"normalized_score":0.9582393765449524},{"token_id":943,"token_text":" type","token_display":" type","score":17.28531837463379,"normalized_score":0.9532535076141357},{"token_id":897,"token_text":" value","token_display":" value","score":17.263004302978516,"normalized_score":0.9525102972984314},{"token_id":470,"token_text":" return","token_display":" return","score":17.180416107177734,"normalized_score":0.9497594833374023},{"token_id":19482,"token_text":" syntax","token_display":" syntax","score":17.02562141418457,"normalized_score":0.944603681564331},{"token_id":5666,"token_text":" operation","token_display":" operation","score":16.96267318725586,"normalized_score":0.9425070285797119},{"token_id":5693,"token_text":" argument","token_display":" argument","score":16.679590225219727,"normalized_score":0.9330782294273376}],"logit_lens_top":[{"token_id":3890,"token_text":" variable","token_display":" variable","score":18.688796997070312,"normalized_score":1.0},{"token_id":5675,"token_text":" operator","token_display":" operator","score":18.280162811279297,"normalized_score":0.9863893985748291},{"token_id":729,"token_text":" function","token_display":" function","score":18.249126434326172,"normalized_score":0.9853556156158447},{"token_id":821,"token_text":" data","token_display":" data","score":17.435009002685547,"normalized_score":0.9582393765449524},{"token_id":943,"token_text":" type","token_display":" type","score":17.28531837463379,"normalized_score":0.9532535076141357},{"token_id":897,"token_text":" value","token_display":" value","score":17.263004302978516,"normalized_score":0.9525102972984314},{"token_id":470,"token_text":" return","token_display":" return","score":17.180416107177734,"normalized_score":0.9497594833374023},{"token_id":19482,"token_text":" syntax","token_display":" syntax","score":17.02562141418457,"normalized_score":0.944603681564331},{"token_id":5666,"token_text":" operation","token_display":" operation","score":16.96267318725586,"normalized_score":0.9425070285797119},{"token_id":5693,"token_text":" argument","token_display":" argument","score":16.679590225219727,"normalized_score":0.9330782294273376}],"comparison":{"topk_overlap":1.0,"rank_correlation":1.0},"activation_norm":59.66604995727539,"transported_norm":59.66604995727539,"is_model_output":true}],"tracked":[],"decompositions":[],"images":[]}</script>
+<script>
+"use strict";
+const RUN = JSON.parse(document.getElementById("run-data").textContent);
+const meta = RUN.metadata;
+const cells = new Map();
+for (const c of RUN.cells) cells.set(c.layer + ":" + c.position, c);
+const positions = [...new Set(RUN.cells.map(c => c.position))].sort((a, b) => a - b);
+const layers = [...new Set(RUN.cells.map(c => c.layer))].sort((a, b) => b - a);
+const posInfo = new Map(RUN.positions.map(p => [p.index, p]));
+
+document.getElementById("runmeta").textContent =
+  `model ${meta.model_id} · ${meta.layers.length} layers × ${meta.n_positions} positions · ` +
+  `top-${meta.top_k} · ${meta.created_at}`;
+document.getElementById("disclaimer").textContent = meta.disclaimer;
+document.getElementById("warnings").innerHTML =
+  (meta.warnings || []).map(w => "⚠ " + escapeHtml(w)).join("<br>");
+
+const kv = document.getElementById("metakv");
+const lm = meta.lens_metadata || {};
+for (const [k, v] of [["prompt", meta.prompt], ["run id", meta.run_id],
+  ["device", meta.device], ["dtype", meta.dtype], ["lens", meta.lens_path],
+  ["fit prompts", lm.number_of_prompts], ["residual location", lm.residual_location],
+  ["patch mapping", meta.patch_mapping]]) {
+  if (v === undefined || v === "") continue;
+  const dt = document.createElement("dt"); dt.textContent = k;
+  const dd = document.createElement("dd"); dd.textContent = String(v);
+  kv.append(dt, dd);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+}
+function heat(score) {
+  const s = Math.max(0, Math.min(1, score));
+  return `rgba(110,168,254,${(0.06 + 0.5 * s).toFixed(3)})`;
+}
+
+const wrap = document.getElementById("gridwrap");
+const table = document.createElement("table");
+table.className = "grid";
+const thead = document.createElement("thead");
+const hrow = document.createElement("tr");
+hrow.appendChild(document.createElement("th")).textContent = "layer \\\\ pos";
+for (const p of positions) {
+  const info = posInfo.get(p);
+  const th = document.createElement("th");
+  th.textContent = `${p}\u00A0${info && info.token_text ? info.token_text.trim() || "·" : ""}`;
+  th.title = info ? `${info.modality} token ${info.token_id}` : "";
+  hrow.appendChild(th);
+}
+thead.appendChild(hrow); table.appendChild(thead);
+const tbody = document.createElement("tbody");
+for (const layer of layers) {
+  const tr = document.createElement("tr");
+  const anyCell = cells.get(layer + ":" + positions[0]);
+  const isOutput = anyCell && anyCell.is_model_output;
+  if (isOutput) tr.className = "output-row";
+  const th = document.createElement("th");
+  th.textContent = isOutput ? `L${layer} (output)` : `L${layer}`;
+  tr.appendChild(th);
+  for (const p of positions) {
+    const cell = cells.get(layer + ":" + p);
+    const td = document.createElement("td");
+    td.className = "cell";
+    if (cell) {
+      const top = cell.jlens_top[0];
+      const info = posInfo.get(p);
+      if (info) td.classList.add("mod-" + info.modality);
+      td.textContent = top ? (top.token_display.trim() || "·") : "";
+      td.style.background = top ? heat(top.normalized_score) : "transparent";
+      td.addEventListener("click", () => select(layer, p, td));
+      td.addEventListener("mousemove", e => showTip(e, cell, info));
+      td.addEventListener("mouseleave", hideTip);
+    }
+    tr.appendChild(td);
+  }
+  tbody.appendChild(tr);
+}
+table.appendChild(tbody); wrap.appendChild(table);
+
+const tip = document.getElementById("tooltip");
+function showTip(e, cell, info) {
+  const rows = cell.jlens_top.slice(0, 10).map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.score.toFixed(2)}</td></tr>`).join("");
+  tip.innerHTML =
+    `<b>L${cell.layer} · pos ${cell.position}</b>` +
+    (info ? ` · ${info.modality} · source <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    `<br>‖h‖=${cell.activation_norm.toFixed(1)} ‖Jh‖=${cell.transported_norm.toFixed(1)}` +
+    `<table class="detail"><tr><th>#</th><th>top J-lens concepts</th><th>lens score</th></tr>${rows}</table>`;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + "px";
+  tip.style.top = Math.min(e.clientY + 14, innerHeight - 260) + "px";
+}
+function hideTip() { tip.style.display = "none"; }
+
+let selectedTd = null;
+function select(layer, pos, td) {
+  if (selectedTd) selectedTd.classList.remove("selected");
+  selectedTd = td; td.classList.add("selected");
+  const cell = cells.get(layer + ":" + pos);
+  const info = posInfo.get(pos);
+  const mk = (entries) => entries.map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.token_id}</td><td>${t.score.toFixed(2)}</td>` +
+    `<td>${t.normalized_score.toFixed(2)}</td></tr>`).join("");
+  document.getElementById("celldetail").innerHTML =
+    `<div class="mutetext">L${layer} · position ${pos}` +
+    (info ? ` · ${info.modality} · source token <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    (cell.is_model_output ? " · <b>model output distribution</b>" : "") + `</div>` +
+    `<table class="detail"><tr><th>#</th><th>concept</th><th>id</th><th>lens score</th><th>norm.</th></tr>` +
+    mk(cell.jlens_top) + `</table>`;
+  const cmp = cell.comparison || {};
+  document.getElementById("comparison").innerHTML =
+    (cell.is_model_output
+      ? `<div class="mutetext">Final layer: J-lens row equals the model output.</div>`
+      : `<div class="mutetext">top-${meta.top_k} overlap ` +
+        `<b>${(cmp.topk_overlap ?? 0).toFixed(2)}</b> · rank corr ` +
+        `<b>${(cmp.rank_correlation ?? 0).toFixed(2)}</b></div>`) +
+    `<table class="detail"><tr><th>#</th><th>logit-lens concept</th><th>score</th></tr>` +
+    cell.logit_lens_top.slice(0, 10).map((t, i) =>
+      `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+      `<td>${t.score.toFixed(2)}</td></tr>`).join("") + `</table>`;
+}
+</script>
+</body>
+</html>

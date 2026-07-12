@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenJSpace report — Seven multiplied by eight equals</title>
+<style>
+:root {
+  --bg: #0f1117; --panel: #171a23; --border: #2a2f3d; --text: #e6e8ee;
+  --muted: #9aa1b2; --accent: #6ea8fe; --warn: #f0b429;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+header h1 { margin: 0 0 4px; font-size: 18px; }
+header .meta { color: var(--muted); font-size: 12px; }
+.disclaimer { margin: 10px 24px; padding: 10px 14px; border: 1px solid var(--warn);
+  border-radius: 6px; color: var(--warn); font-size: 12px; background: rgba(240,180,41,.06); }
+.warnings { margin: 0 24px 10px; color: var(--warn); font-size: 12px; }
+main { display: flex; gap: 16px; padding: 12px 24px 32px; align-items: flex-start; }
+#gridwrap { overflow: auto; max-height: 72vh; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--panel); flex: 1 1 auto; }
+table.grid { border-collapse: collapse; font-size: 11px; }
+table.grid th, table.grid td { border: 1px solid var(--border); padding: 2px 6px;
+  white-space: nowrap; text-align: center; }
+table.grid th { position: sticky; background: #1d2130; z-index: 2; }
+table.grid thead th { top: 0; }
+table.grid tbody th { left: 0; }
+td.cell { cursor: pointer; min-width: 52px; max-width: 110px; overflow: hidden;
+  text-overflow: ellipsis; color: #dfe3ec; }
+td.cell.selected { outline: 2px solid var(--accent); outline-offset: -2px; }
+td.cell.mod-image_token { border-bottom: 2px solid #59c9a5; }
+td.cell.mod-image_boundary { border-bottom: 2px dashed #59c9a5; }
+td.cell.mod-special { border-bottom: 2px dotted #b48ef0; }
+tr.output-row th, tr.output-row td { border-top: 2px solid var(--accent); }
+#side { flex: 0 0 380px; display: flex; flex-direction: column; gap: 12px; }
+.panel { border: 1px solid var(--border); border-radius: 8px; background: var(--panel);
+  padding: 12px 14px; }
+.panel h2 { margin: 0 0 8px; font-size: 13px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .05em; }
+table.detail { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.detail td, table.detail th { padding: 2px 6px; text-align: left;
+  border-bottom: 1px solid var(--border); }
+table.detail th { color: var(--muted); font-weight: 500; }
+.tok { font-family: ui-monospace, monospace; background: #232838; border-radius: 4px;
+  padding: 0 4px; }
+.mutetext { color: var(--muted); font-size: 12px; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 12px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; word-break: break-all; }
+#tooltip { position: fixed; display: none; z-index: 10; background: #1d2130;
+  border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px;
+  font-size: 11px; max-width: 340px; pointer-events: none; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+<header>
+  <h1>OpenJSpace report — Seven multiplied by eight equals</h1>
+  <div class="meta" id="runmeta"></div>
+</header>
+<div class="disclaimer" id="disclaimer"></div>
+<div class="warnings" id="warnings"></div>
+<main>
+  <div id="gridwrap"></div>
+  <div id="side">
+    <div class="panel"><h2>Selected cell</h2><div id="celldetail" class="mutetext">
+      Click a cell in the grid to inspect its top J-lens concepts.</div></div>
+    <div class="panel"><h2>Lens comparison</h2><div id="comparison" class="mutetext">—</div></div>
+    <div class="panel"><h2>Run metadata</h2><dl class="kv" id="metakv"></dl></div>
+  </div>
+</main>
+<div id="tooltip"></div>
+<script id="run-data" type="application/json">{"schema_version":1,"metadata":{"run_id":"c773890b92b8","created_at":"2026-07-12T18:13:52+00:00","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_architecture":"Qwen2ForCausalLM","model_kind":"text","device":"cpu","dtype":"torch.float32","lens_path":"/workspace/artifacts/qwen2.5-0.5b-instruct-demo","lens_metadata":{"format_version":1,"method":"jacobian_lens","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_revision":null,"model_architecture":"Qwen2ForCausalLM","tokenizer_id":"Qwen/Qwen2.5-0.5B-Instruct","tokenizer_revision":null,"hidden_size":896,"vocab_size":151936,"n_layers":24,"source_layers":[2,4,8,12,16,20],"target_layer":23,"residual_location":"block_output","sequence_length":64,"skip_first_positions":16,"number_of_prompts":24,"number_of_valid_positions":1128,"dtype_used_for_model":"torch.float32","dtype_used_for_accumulation":"float32","fitting_dataset":"wikitext (num_prompts=24, seed=0, shard=0/1)","created_at":"2026-07-12T18:11:51+00:00","library_versions":{"python":"3.12.3","torch":"2.13.0+cpu","safetensors":"0.8.0","transformers":"5.13.1"},"notes":""},"prompt":"Seven multiplied by eight equals","used_chat_template":false,"layers":[2,4,8,12,16,20,23],"top_k":10,"n_positions":1,"patch_mapping":"unavailable","disclaimer":"Jacobian-lens readouts are approximate concept readouts: corpus-averaged, linearized transports of residual-stream activations decoded through the model's own unembedding. They surface verbalizable activation directions — not literal 'thoughts' — and scores are rankings, not calibrated probabilities. Causal claims require interventions, not visualization.","warnings":[]},"positions":[{"index":0,"modality":"text","token_id":59528,"token_text":"Seven","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":1,"modality":"text","token_id":54916,"token_text":" multiplied","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":2,"modality":"text","token_id":553,"token_text":" by","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":3,"modality":"text","token_id":8063,"token_text":" eight","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":4,"modality":"text","token_id":16819,"token_text":" equals","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null}],"cells":[{"layer":2,"position":4,"jlens_top":[{"token_id":2073,"token_text":"“","token_display":"“","score":14.344884872436523,"normalized_score":1.0},{"token_id":7245,"token_text":" \\\"","token_display":" \\\"","score":13.659873962402344,"normalized_score":0.9760842323303223},{"token_id":70170,"token_text":"“(","token_display":"“(","score":13.236465454101562,"normalized_score":0.9613018035888672},{"token_id":854,"token_text":"”","token_display":"”","score":12.96453857421875,"normalized_score":0.9518080353736877},{"token_id":1036,"token_text":" “","token_display":" “","score":12.800408363342285,"normalized_score":0.946077823638916},{"token_id":34047,"token_text":".“","token_display":".“","score":12.644667625427246,"normalized_score":0.940640389919281},{"token_id":2105,"token_text":"\\\"","token_display":"\\\"","score":12.498788833618164,"normalized_score":0.9355473518371582},{"token_id":86865,"token_text":".\\\"","token_display":".\\\"","score":12.424858093261719,"normalized_score":0.9329661726951599},{"token_id":52318,"token_text":",\\\"","token_display":",\\\"","score":12.353239059448242,"normalized_score":0.9304657578468323},{"token_id":76184,"token_text":"“.","token_display":"“.","score":12.131617546081543,"normalized_score":0.9227283000946045}],"logit_lens_top":[{"token_id":77667,"token_text":"ージ","token_display":"ージ","score":13.2781982421875,"normalized_score":1.0},{"token_id":19840,"token_text":"arte","token_display":"arte","score":12.816606521606445,"normalized_score":0.9821116924285889},{"token_id":143807,"token_text":"профессиона","token_display":"профессиона","score":12.539554595947266,"normalized_score":0.9713749289512634},{"token_id":115058,"token_text":"发现问题","token_display":"发现问题","score":12.517075538635254,"normalized_score":0.9705038070678711},{"token_id":36251,"token_text":"artisan","token_display":"artisan","score":12.43644905090332,"normalized_score":0.9673792123794556},{"token_id":114155,"token_text":"此基础上","token_display":"此基础上","score":12.31928539276123,"normalized_score":0.9628386497497559},{"token_id":28190,"token_text":"ToOne","token_display":"ToOne","score":12.187732696533203,"normalized_score":0.9577405452728271},{"token_id":22080,"token_text":" Abs","token_display":" Abs","score":12.175007820129395,"normalized_score":0.9572474360466003},{"token_id":2303,"token_text":"  \n","token_display":"  \\n","score":12.126158714294434,"normalized_score":0.9553543329238892},{"token_id":100541,"token_text":"赏","token_display":"赏","score":11.954401016235352,"normalized_score":0.948698103427887}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.8090225563909774},"activation_norm":9.065407752990723,"transported_norm":11.21094036102295,"is_model_output":false},{"layer":4,"position":4,"jlens_top":[{"token_id":32620,"token_text":"?\\","token_display":"?\\","score":20.136838912963867,"normalized_score":1.0},{"token_id":7110,"token_text":".\\","token_display":".\\","score":19.66768455505371,"normalized_score":0.9852393269538879},{"token_id":72341,"token_text":").\\","token_display":").\\","score":17.659353256225586,"normalized_score":0.9220526814460754},{"token_id":86865,"token_text":".\\\"","token_display":".\\\"","score":17.409013748168945,"normalized_score":0.9141764044761658},{"token_id":36014,"token_text":"(\\\"","token_display":"(\\\"","score":17.03325080871582,"normalized_score":0.9023540616035461},{"token_id":60402,"token_text":"..\\","token_display":"..\\","score":16.65845489501953,"normalized_score":0.890562117099762},{"token_id":17882,"token_text":";\\","token_display":";\\","score":16.48870849609375,"normalized_score":0.8852214813232422},{"token_id":66898,"token_text":"。\\","token_display":"。\\","score":16.220853805541992,"normalized_score":0.876794159412384},{"token_id":63173,"token_text":".\")\r\n","token_display":".\")�\\n","score":16.176605224609375,"normalized_score":0.87540203332901},{"token_id":7245,"token_text":" \\\"","token_display":" \\\"","score":16.13140296936035,"normalized_score":0.8739798665046692}],"logit_lens_top":[{"token_id":19840,"token_text":"arte","token_display":"arte","score":16.997800827026367,"normalized_score":1.0},{"token_id":66100,"token_text":"*&","token_display":"*&","score":15.1098051071167,"normalized_score":0.9348180890083313},{"token_id":51992,"token_text":"disconnect","token_display":"disconnect","score":14.553436279296875,"normalized_score":0.9156097173690796},{"token_id":81695,"token_text":"xCE","token_display":"xCE","score":13.421536445617676,"normalized_score":0.8765316009521484},{"token_id":28520,"token_text":"*/,\n","token_display":"*/,\\n","score":12.820287704467773,"normalized_score":0.85577392578125},{"token_id":89728,"token_text":"xAE","token_display":"xAE","score":12.779820442199707,"normalized_score":0.8543767929077148},{"token_id":36251,"token_text":"artisan","token_display":"artisan","score":12.712721824645996,"normalized_score":0.8520602583885193},{"token_id":63360,"token_text":"apg","token_display":"apg","score":12.70642375946045,"normalized_score":0.8518428206443787},{"token_id":31736,"token_text":"peri","token_display":"peri","score":12.65838623046875,"normalized_score":0.8501843214035034},{"token_id":33477,"token_text":"证","token_display":"证","score":12.54829216003418,"normalized_score":0.8463834524154663}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.6736842105263158},"activation_norm":11.830595016479492,"transported_norm":14.369422912597656,"is_model_output":false},{"layer":8,"position":4,"jlens_top":[{"token_id":32620,"token_text":"?\\","token_display":"?\\","score":18.542316436767578,"normalized_score":1.0},{"token_id":48116,"token_text":".”\n","token_display":".”\\n","score":18.005172729492188,"normalized_score":0.9814139604568481},{"token_id":7110,"token_text":".\\","token_display":".\\","score":17.566516876220703,"normalized_score":0.9662357568740845},{"token_id":12390,"token_text":"?”","token_display":"?”","score":17.500490188598633,"normalized_score":0.963951051235199},{"token_id":86865,"token_text":".\\\"","token_display":".\\\"","score":17.187149047851562,"normalized_score":0.9531089663505554},{"token_id":1987,"token_text":".”","token_display":".”","score":15.92653751373291,"normalized_score":0.9094897508621216},{"token_id":34047,"token_text":".“","token_display":".“","score":15.847464561462402,"normalized_score":0.906753659248352},{"token_id":14771,"token_text":"!\\","token_display":"!\\","score":15.705751419067383,"normalized_score":0.9018501043319702},{"token_id":52318,"token_text":",\\\"","token_display":",\\\"","score":15.25312614440918,"normalized_score":0.8861885666847229},{"token_id":6888,"token_text":" math","token_display":" math","score":14.982171058654785,"normalized_score":0.8768131136894226}],"logit_lens_top":[{"token_id":56268,"token_text":"',...\n","token_display":"',...\\n","score":14.74111557006836,"normalized_score":1.0},{"token_id":19840,"token_text":"arte","token_display":"arte","score":14.50847053527832,"normalized_score":0.9908732175827026},{"token_id":7848,"token_text":"conds","token_display":"conds","score":14.022916793823242,"normalized_score":0.9718248248100281},{"token_id":75414,"token_text":"?<","token_display":"?<","score":13.389626502990723,"normalized_score":0.9469807744026184},{"token_id":96473,"token_text":"ADR","token_display":"ADR","score":13.32028579711914,"normalized_score":0.9442605376243591},{"token_id":59693,"token_text":"antal","token_display":"antal","score":13.269725799560547,"normalized_score":0.9422770738601685},{"token_id":69868,"token_text":"айд","token_display":"айд","score":13.084794998168945,"normalized_score":0.9350221157073975},{"token_id":42679,"token_text":"tablename","token_display":"tablename","score":12.86878490447998,"normalized_score":0.9265480637550354},{"token_id":63360,"token_text":"apg","token_display":"apg","score":12.777745246887207,"normalized_score":0.922976553440094},{"token_id":90455,"token_text":"lements","token_display":"lements","score":12.711942672729492,"normalized_score":0.920395016670227}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.7398496240601504},"activation_norm":15.051106452941895,"transported_norm":20.969621658325195,"is_model_output":false},{"layer":12,"position":4,"jlens_top":[{"token_id":32620,"token_text":"?\\","token_display":"?\\","score":20.91889762878418,"normalized_score":1.0},{"token_id":14771,"token_text":"!\\","token_display":"!\\","score":18.94401741027832,"normalized_score":0.9353945851325989},{"token_id":7110,"token_text":".\\","token_display":".\\","score":18.429243087768555,"normalized_score":0.9185544848442078},{"token_id":70828,"token_text":"?\")\n","token_display":"?\")\\n","score":18.3924617767334,"normalized_score":0.917351245880127},{"token_id":86865,"token_text":".\\\"","token_display":".\\\"","score":17.585926055908203,"normalized_score":0.8909666538238525},{"token_id":66898,"token_text":"。\\","token_display":"。\\","score":17.53788948059082,"normalized_score":0.8893951177597046},{"token_id":48116,"token_text":".”\n","token_display":".”\\n","score":17.282793045043945,"normalized_score":0.8810500502586365},{"token_id":22988,"token_text":"!\")\n","token_display":"!\")\\n","score":17.012609481811523,"normalized_score":0.8722113370895386},{"token_id":13053,"token_text":".\")\n","token_display":".\")\\n","score":16.868722915649414,"normalized_score":0.8675042986869812},{"token_id":12390,"token_text":"?”","token_display":"?”","score":16.46974754333496,"normalized_score":0.8544524312019348}],"logit_lens_top":[{"token_id":7848,"token_text":"conds","token_display":"conds","score":14.289341926574707,"normalized_score":1.0},{"token_id":15900,"token_text":"omo","token_display":"omo","score":11.933162689208984,"normalized_score":0.9087950587272644},{"token_id":102321,"token_text":"棒","token_display":"棒","score":11.78178882598877,"normalized_score":0.9029355645179749},{"token_id":19840,"token_text":"arte","token_display":"arte","score":11.186518669128418,"normalized_score":0.8798933029174805},{"token_id":88196,"token_text":" addButton","token_display":" addButton","score":11.181673049926758,"normalized_score":0.8797057867050171},{"token_id":124797,"token_text":"ду","token_display":"ду","score":10.86512565612793,"normalized_score":0.8674526214599609},{"token_id":36398,"token_text":" sums","token_display":" sums","score":10.79911994934082,"normalized_score":0.864897608757019},{"token_id":119298,"token_text":"匕","token_display":"匕","score":10.708958625793457,"normalized_score":0.8614075779914856},{"token_id":117282,"token_text":"家都知道","token_display":"家都知道","score":10.610060691833496,"normalized_score":0.8575792908668518},{"token_id":79908,"token_text":" inputValue","token_display":" inputValue","score":10.543395042419434,"normalized_score":0.854998767375946}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.7443609022556391},"activation_norm":17.28834342956543,"transported_norm":25.220008850097656,"is_model_output":false},{"layer":16,"position":4,"jlens_top":[{"token_id":32620,"token_text":"?\\","token_display":"?\\","score":24.29775047302246,"normalized_score":1.0},{"token_id":2130,"token_text":"____","token_display":"____","score":23.91228485107422,"normalized_score":0.9885640740394592},{"token_id":16218,"token_text":"?”\n\n","token_display":"?”\\n\\n","score":22.51182746887207,"normalized_score":0.9470152854919434},{"token_id":32671,"token_text":" ______","token_display":" ______","score":22.28228759765625,"normalized_score":0.9402053356170654},{"token_id":65892,"token_text":" _____","token_display":" _____","score":21.83942413330078,"normalized_score":0.927066445350647},{"token_id":80517,"token_text":"_____","token_display":"_____","score":21.64558982849121,"normalized_score":0.9213157296180725},{"token_id":70828,"token_text":"?\")\n","token_display":"?\")\\n","score":20.842674255371094,"normalized_score":0.8974948525428772},{"token_id":47369,"token_text":"?\"\n","token_display":"?\"\\n","score":20.565093994140625,"normalized_score":0.8892596364021301},{"token_id":35718,"token_text":"?\",\n","token_display":"?\",\\n","score":20.388715744018555,"normalized_score":0.884026825428009},{"token_id":14437,"token_text":"?(","token_display":"?(","score":20.106199264526367,"normalized_score":0.875645101070404}],"logit_lens_top":[{"token_id":100430,"token_text":"多少","token_display":"多少","score":12.564713478088379,"normalized_score":1.0},{"token_id":82930,"token_text":"__,__","token_display":"__,__","score":12.516361236572266,"normalized_score":0.9976695775985718},{"token_id":7848,"token_text":"conds","token_display":"conds","score":12.507057189941406,"normalized_score":0.9972211718559265},{"token_id":2130,"token_text":"____","token_display":"____","score":12.34894847869873,"normalized_score":0.9896010160446167},{"token_id":89382,"token_text":")__","token_display":")__","score":12.30606746673584,"normalized_score":0.9875343441963196},{"token_id":87143,"token_text":"Mathf","token_display":"Mathf","score":11.971850395202637,"normalized_score":0.9714266061782837},{"token_id":78877,"token_text":"lernen","token_display":"lernen","score":11.92123031616211,"normalized_score":0.968986988067627},{"token_id":15371,"token_text":"izona","token_display":"izona","score":11.856050491333008,"normalized_score":0.9658456444740295},{"token_id":110791,"token_text":"什么意思","token_display":"什么意思","score":11.852481842041016,"normalized_score":0.9656736254692078},{"token_id":94753,"token_text":"(___","token_display":"(___","score":11.849465370178223,"normalized_score":0.9655283093452454}],"comparison":{"topk_overlap":0.1,"rank_correlation":-0.5964912280701753},"activation_norm":24.488908767700195,"transported_norm":31.031421661376953,"is_model_output":false},{"layer":20,"position":4,"jlens_top":[{"token_id":32671,"token_text":" ______","token_display":" ______","score":21.81397247314453,"normalized_score":1.0},{"token_id":65892,"token_text":" _____","token_display":" _____","score":21.135438919067383,"normalized_score":0.9781333208084106},{"token_id":1304,"token_text":" __","token_display":" __","score":20.226037979125977,"normalized_score":0.9488266110420227},{"token_id":1128,"token_text":" what","token_display":" what","score":19.98335075378418,"normalized_score":0.9410057067871094},{"token_id":30743,"token_text":" ____","token_display":" ____","score":19.16147232055664,"normalized_score":0.9145195484161377},{"token_id":7436,"token_text":" ___","token_display":" ___","score":19.135404586791992,"normalized_score":0.9136794805526733},{"token_id":2130,"token_text":"____","token_display":"____","score":19.015256881713867,"normalized_score":0.909807562828064},{"token_id":1246,"token_text":" how","token_display":" how","score":18.843494415283203,"normalized_score":0.9042722582817078},{"token_id":892,"token_text":" which","token_display":" which","score":18.1830997467041,"normalized_score":0.8829901218414307},{"token_id":1939,"token_text":"?\n\n","token_display":"?\\n\\n","score":18.085214614868164,"normalized_score":0.8798356652259827}],"logit_lens_top":[{"token_id":1128,"token_text":" what","token_display":" what","score":15.534528732299805,"normalized_score":1.0},{"token_id":115752,"token_text":"哪一个","token_display":"哪一个","score":14.419252395629883,"normalized_score":0.9552940726280212},{"token_id":1246,"token_text":" how","token_display":" how","score":14.246102333068848,"normalized_score":0.9483532905578613},{"token_id":79579,"token_text":" eighty","token_display":" eighty","score":13.840595245361328,"normalized_score":0.9320985674858093},{"token_id":99459,"token_text":"哪","token_display":"哪","score":13.784815788269043,"normalized_score":0.9298626780509949},{"token_id":892,"token_text":" which","token_display":" which","score":13.433585166931152,"normalized_score":0.9157835245132446},{"token_id":58039,"token_text":" sixteen","token_display":" sixteen","score":13.263213157653809,"normalized_score":0.9089542031288147},{"token_id":81397,"token_text":" seventeen","token_display":" seventeen","score":12.870673179626465,"normalized_score":0.8932191729545593},{"token_id":8063,"token_text":" eight","token_display":" eight","score":12.818302154541016,"normalized_score":0.8911198377609253},{"token_id":69949,"token_text":" seventy","token_display":" seventy","score":12.792277336120605,"normalized_score":0.8900766968727112}],"comparison":{"topk_overlap":0.3,"rank_correlation":-0.4240196078431373},"activation_norm":48.753231048583984,"transported_norm":56.84799575805664,"is_model_output":false},{"layer":23,"position":4,"jlens_top":[{"token_id":220,"token_text":" ","token_display":" ","score":18.26799774169922,"normalized_score":1.0},{"token_id":1128,"token_text":" what","token_display":" what","score":17.306657791137695,"normalized_score":0.9687139987945557},{"token_id":264,"token_text":" a","token_display":" a","score":17.037076950073242,"normalized_score":0.9599406719207764},{"token_id":1246,"token_text":" how","token_display":" how","score":16.5155086517334,"normalized_score":0.9429666996002197},{"token_id":892,"token_text":" which","token_display":" which","score":16.160961151123047,"normalized_score":0.9314282536506653},{"token_id":8063,"token_text":" eight","token_display":" eight","score":16.05636215209961,"normalized_score":0.928024172782898},{"token_id":510,"token_text":":\n","token_display":":\\n","score":16.041990280151367,"normalized_score":0.9275563955307007},{"token_id":279,"token_text":" the","token_display":" the","score":15.900042533874512,"normalized_score":0.9229367971420288},{"token_id":17073,"token_text":" twenty","token_display":" twenty","score":15.754772186279297,"normalized_score":0.9182091355323792},{"token_id":3040,"token_text":" four","token_display":" four","score":15.614493370056152,"normalized_score":0.9136438369750977}],"logit_lens_top":[{"token_id":220,"token_text":" ","token_display":" ","score":18.26799774169922,"normalized_score":1.0},{"token_id":1128,"token_text":" what","token_display":" what","score":17.306657791137695,"normalized_score":0.9687139987945557},{"token_id":264,"token_text":" a","token_display":" a","score":17.037076950073242,"normalized_score":0.9599406719207764},{"token_id":1246,"token_text":" how","token_display":" how","score":16.5155086517334,"normalized_score":0.9429666996002197},{"token_id":892,"token_text":" which","token_display":" which","score":16.160961151123047,"normalized_score":0.9314282536506653},{"token_id":8063,"token_text":" eight","token_display":" eight","score":16.05636215209961,"normalized_score":0.928024172782898},{"token_id":510,"token_text":":\n","token_display":":\\n","score":16.041990280151367,"normalized_score":0.9275563955307007},{"token_id":279,"token_text":" the","token_display":" the","score":15.900042533874512,"normalized_score":0.9229367971420288},{"token_id":17073,"token_text":" twenty","token_display":" twenty","score":15.754772186279297,"normalized_score":0.9182091355323792},{"token_id":3040,"token_text":" four","token_display":" four","score":15.614493370056152,"normalized_score":0.9136438369750977}],"comparison":{"topk_overlap":1.0,"rank_correlation":1.0},"activation_norm":67.34183502197266,"transported_norm":67.34183502197266,"is_model_output":true}],"tracked":[],"decompositions":[],"images":[]}</script>
+<script>
+"use strict";
+const RUN = JSON.parse(document.getElementById("run-data").textContent);
+const meta = RUN.metadata;
+const cells = new Map();
+for (const c of RUN.cells) cells.set(c.layer + ":" + c.position, c);
+const positions = [...new Set(RUN.cells.map(c => c.position))].sort((a, b) => a - b);
+const layers = [...new Set(RUN.cells.map(c => c.layer))].sort((a, b) => b - a);
+const posInfo = new Map(RUN.positions.map(p => [p.index, p]));
+
+document.getElementById("runmeta").textContent =
+  `model ${meta.model_id} · ${meta.layers.length} layers × ${meta.n_positions} positions · ` +
+  `top-${meta.top_k} · ${meta.created_at}`;
+document.getElementById("disclaimer").textContent = meta.disclaimer;
+document.getElementById("warnings").innerHTML =
+  (meta.warnings || []).map(w => "⚠ " + escapeHtml(w)).join("<br>");
+
+const kv = document.getElementById("metakv");
+const lm = meta.lens_metadata || {};
+for (const [k, v] of [["prompt", meta.prompt], ["run id", meta.run_id],
+  ["device", meta.device], ["dtype", meta.dtype], ["lens", meta.lens_path],
+  ["fit prompts", lm.number_of_prompts], ["residual location", lm.residual_location],
+  ["patch mapping", meta.patch_mapping]]) {
+  if (v === undefined || v === "") continue;
+  const dt = document.createElement("dt"); dt.textContent = k;
+  const dd = document.createElement("dd"); dd.textContent = String(v);
+  kv.append(dt, dd);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+}
+function heat(score) {
+  const s = Math.max(0, Math.min(1, score));
+  return `rgba(110,168,254,${(0.06 + 0.5 * s).toFixed(3)})`;
+}
+
+const wrap = document.getElementById("gridwrap");
+const table = document.createElement("table");
+table.className = "grid";
+const thead = document.createElement("thead");
+const hrow = document.createElement("tr");
+hrow.appendChild(document.createElement("th")).textContent = "layer \\\\ pos";
+for (const p of positions) {
+  const info = posInfo.get(p);
+  const th = document.createElement("th");
+  th.textContent = `${p}\u00A0${info && info.token_text ? info.token_text.trim() || "·" : ""}`;
+  th.title = info ? `${info.modality} token ${info.token_id}` : "";
+  hrow.appendChild(th);
+}
+thead.appendChild(hrow); table.appendChild(thead);
+const tbody = document.createElement("tbody");
+for (const layer of layers) {
+  const tr = document.createElement("tr");
+  const anyCell = cells.get(layer + ":" + positions[0]);
+  const isOutput = anyCell && anyCell.is_model_output;
+  if (isOutput) tr.className = "output-row";
+  const th = document.createElement("th");
+  th.textContent = isOutput ? `L${layer} (output)` : `L${layer}`;
+  tr.appendChild(th);
+  for (const p of positions) {
+    const cell = cells.get(layer + ":" + p);
+    const td = document.createElement("td");
+    td.className = "cell";
+    if (cell) {
+      const top = cell.jlens_top[0];
+      const info = posInfo.get(p);
+      if (info) td.classList.add("mod-" + info.modality);
+      td.textContent = top ? (top.token_display.trim() || "·") : "";
+      td.style.background = top ? heat(top.normalized_score) : "transparent";
+      td.addEventListener("click", () => select(layer, p, td));
+      td.addEventListener("mousemove", e => showTip(e, cell, info));
+      td.addEventListener("mouseleave", hideTip);
+    }
+    tr.appendChild(td);
+  }
+  tbody.appendChild(tr);
+}
+table.appendChild(tbody); wrap.appendChild(table);
+
+const tip = document.getElementById("tooltip");
+function showTip(e, cell, info) {
+  const rows = cell.jlens_top.slice(0, 10).map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.score.toFixed(2)}</td></tr>`).join("");
+  tip.innerHTML =
+    `<b>L${cell.layer} · pos ${cell.position}</b>` +
+    (info ? ` · ${info.modality} · source <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    `<br>‖h‖=${cell.activation_norm.toFixed(1)} ‖Jh‖=${cell.transported_norm.toFixed(1)}` +
+    `<table class="detail"><tr><th>#</th><th>top J-lens concepts</th><th>lens score</th></tr>${rows}</table>`;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + "px";
+  tip.style.top = Math.min(e.clientY + 14, innerHeight - 260) + "px";
+}
+function hideTip() { tip.style.display = "none"; }
+
+let selectedTd = null;
+function select(layer, pos, td) {
+  if (selectedTd) selectedTd.classList.remove("selected");
+  selectedTd = td; td.classList.add("selected");
+  const cell = cells.get(layer + ":" + pos);
+  const info = posInfo.get(pos);
+  const mk = (entries) => entries.map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.token_id}</td><td>${t.score.toFixed(2)}</td>` +
+    `<td>${t.normalized_score.toFixed(2)}</td></tr>`).join("");
+  document.getElementById("celldetail").innerHTML =
+    `<div class="mutetext">L${layer} · position ${pos}` +
+    (info ? ` · ${info.modality} · source token <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    (cell.is_model_output ? " · <b>model output distribution</b>" : "") + `</div>` +
+    `<table class="detail"><tr><th>#</th><th>concept</th><th>id</th><th>lens score</th><th>norm.</th></tr>` +
+    mk(cell.jlens_top) + `</table>`;
+  const cmp = cell.comparison || {};
+  document.getElementById("comparison").innerHTML =
+    (cell.is_model_output
+      ? `<div class="mutetext">Final layer: J-lens row equals the model output.</div>`
+      : `<div class="mutetext">top-${meta.top_k} overlap ` +
+        `<b>${(cmp.topk_overlap ?? 0).toFixed(2)}</b> · rank corr ` +
+        `<b>${(cmp.rank_correlation ?? 0).toFixed(2)}</b></div>`) +
+    `<table class="detail"><tr><th>#</th><th>logit-lens concept</th><th>score</th></tr>` +
+    cell.logit_lens_top.slice(0, 10).map((t, i) =>
+      `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+      `<td>${t.score.toFixed(2)}</td></tr>`).join("") + `</table>`;
+}
+</script>
+</body>
+</html>

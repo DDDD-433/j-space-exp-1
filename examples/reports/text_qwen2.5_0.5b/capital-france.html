@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenJSpace report — The capital of France is</title>
+<style>
+:root {
+  --bg: #0f1117; --panel: #171a23; --border: #2a2f3d; --text: #e6e8ee;
+  --muted: #9aa1b2; --accent: #6ea8fe; --warn: #f0b429;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+header h1 { margin: 0 0 4px; font-size: 18px; }
+header .meta { color: var(--muted); font-size: 12px; }
+.disclaimer { margin: 10px 24px; padding: 10px 14px; border: 1px solid var(--warn);
+  border-radius: 6px; color: var(--warn); font-size: 12px; background: rgba(240,180,41,.06); }
+.warnings { margin: 0 24px 10px; color: var(--warn); font-size: 12px; }
+main { display: flex; gap: 16px; padding: 12px 24px 32px; align-items: flex-start; }
+#gridwrap { overflow: auto; max-height: 72vh; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--panel); flex: 1 1 auto; }
+table.grid { border-collapse: collapse; font-size: 11px; }
+table.grid th, table.grid td { border: 1px solid var(--border); padding: 2px 6px;
+  white-space: nowrap; text-align: center; }
+table.grid th { position: sticky; background: #1d2130; z-index: 2; }
+table.grid thead th { top: 0; }
+table.grid tbody th { left: 0; }
+td.cell { cursor: pointer; min-width: 52px; max-width: 110px; overflow: hidden;
+  text-overflow: ellipsis; color: #dfe3ec; }
+td.cell.selected { outline: 2px solid var(--accent); outline-offset: -2px; }
+td.cell.mod-image_token { border-bottom: 2px solid #59c9a5; }
+td.cell.mod-image_boundary { border-bottom: 2px dashed #59c9a5; }
+td.cell.mod-special { border-bottom: 2px dotted #b48ef0; }
+tr.output-row th, tr.output-row td { border-top: 2px solid var(--accent); }
+#side { flex: 0 0 380px; display: flex; flex-direction: column; gap: 12px; }
+.panel { border: 1px solid var(--border); border-radius: 8px; background: var(--panel);
+  padding: 12px 14px; }
+.panel h2 { margin: 0 0 8px; font-size: 13px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .05em; }
+table.detail { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.detail td, table.detail th { padding: 2px 6px; text-align: left;
+  border-bottom: 1px solid var(--border); }
+table.detail th { color: var(--muted); font-weight: 500; }
+.tok { font-family: ui-monospace, monospace; background: #232838; border-radius: 4px;
+  padding: 0 4px; }
+.mutetext { color: var(--muted); font-size: 12px; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 12px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; word-break: break-all; }
+#tooltip { position: fixed; display: none; z-index: 10; background: #1d2130;
+  border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px;
+  font-size: 11px; max-width: 340px; pointer-events: none; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+<header>
+  <h1>OpenJSpace report — The capital of France is</h1>
+  <div class="meta" id="runmeta"></div>
+</header>
+<div class="disclaimer" id="disclaimer"></div>
+<div class="warnings" id="warnings"></div>
+<main>
+  <div id="gridwrap"></div>
+  <div id="side">
+    <div class="panel"><h2>Selected cell</h2><div id="celldetail" class="mutetext">
+      Click a cell in the grid to inspect its top J-lens concepts.</div></div>
+    <div class="panel"><h2>Lens comparison</h2><div id="comparison" class="mutetext">—</div></div>
+    <div class="panel"><h2>Run metadata</h2><dl class="kv" id="metakv"></dl></div>
+  </div>
+</main>
+<div id="tooltip"></div>
+<script id="run-data" type="application/json">{"schema_version":1,"metadata":{"run_id":"3865c8ced53e","created_at":"2026-07-12T18:13:51+00:00","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_architecture":"Qwen2ForCausalLM","model_kind":"text","device":"cpu","dtype":"torch.float32","lens_path":"/workspace/artifacts/qwen2.5-0.5b-instruct-demo","lens_metadata":{"format_version":1,"method":"jacobian_lens","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_revision":null,"model_architecture":"Qwen2ForCausalLM","tokenizer_id":"Qwen/Qwen2.5-0.5B-Instruct","tokenizer_revision":null,"hidden_size":896,"vocab_size":151936,"n_layers":24,"source_layers":[2,4,8,12,16,20],"target_layer":23,"residual_location":"block_output","sequence_length":64,"skip_first_positions":16,"number_of_prompts":24,"number_of_valid_positions":1128,"dtype_used_for_model":"torch.float32","dtype_used_for_accumulation":"float32","fitting_dataset":"wikitext (num_prompts=24, seed=0, shard=0/1)","created_at":"2026-07-12T18:11:51+00:00","library_versions":{"python":"3.12.3","torch":"2.13.0+cpu","safetensors":"0.8.0","transformers":"5.13.1"},"notes":""},"prompt":"The capital of France is","used_chat_template":false,"layers":[2,4,8,12,16,20,23],"top_k":10,"n_positions":1,"patch_mapping":"unavailable","disclaimer":"Jacobian-lens readouts are approximate concept readouts: corpus-averaged, linearized transports of residual-stream activations decoded through the model's own unembedding. They surface verbalizable activation directions — not literal 'thoughts' — and scores are rankings, not calibrated probabilities. Causal claims require interventions, not visualization.","warnings":[]},"positions":[{"index":0,"modality":"text","token_id":785,"token_text":"The","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":1,"modality":"text","token_id":6722,"token_text":" capital","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":2,"modality":"text","token_id":315,"token_text":" of","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":3,"modality":"text","token_id":9625,"token_text":" France","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":4,"modality":"text","token_id":374,"token_text":" is","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null}],"cells":[{"layer":2,"position":4,"jlens_top":[{"token_id":7190,"token_text":":\\","token_display":":\\","score":14.831775665283203,"normalized_score":1.0},{"token_id":7764,"token_text":":<\/","token_display":":<\/","score":14.346062660217285,"normalized_score":0.9828282594680786},{"token_id":400,"token_text":" $","token_display":" $","score":14.045693397521973,"normalized_score":0.9722091555595398},{"token_id":4102,"token_text":" ","token_display":" ","score":13.353741645812988,"normalized_score":0.947746217250824},{"token_id":14223,"token_text":":\n\n\n\n","token_display":":\\n\\n\\n\\n","score":12.863677024841309,"normalized_score":0.9304207563400269},{"token_id":26107,"token_text":" $$","token_display":" $$","score":12.75784683227539,"normalized_score":0.926679253578186},{"token_id":23817,"token_text":":\\\\","token_display":":\\\\","score":12.670440673828125,"normalized_score":0.9235891699790955},{"token_id":7110,"token_text":".\\","token_display":".\\","score":12.597132682800293,"normalized_score":0.9209975004196167},{"token_id":24391,"token_text":":\n\n\n","token_display":":\\n\\n\\n","score":12.50186824798584,"normalized_score":0.9176295399665833},{"token_id":9533,"token_text":"](","token_display":"](","score":12.446868896484375,"normalized_score":0.9156851172447205}],"logit_lens_top":[{"token_id":70982,"token_text":".','","token_display":".','","score":14.861944198608398,"normalized_score":1.0},{"token_id":79895,"token_text":":')","token_display":":')","score":14.831399917602539,"normalized_score":0.999110996723175},{"token_id":98964,"token_text":"';\";\n","token_display":"';\";\\n","score":14.348419189453125,"normalized_score":0.9850533604621887},{"token_id":54136,"token_text":".\"));\n","token_display":".\"));\\n","score":13.934571266174316,"normalized_score":0.9730079174041748},{"token_id":77355,"token_text":".\";","token_display":".\";","score":12.969889640808105,"normalized_score":0.9449297785758972},{"token_id":71471,"token_text":"\")));","token_display":"\")));","score":12.54345989227295,"normalized_score":0.9325181245803833},{"token_id":68746,"token_text":".'));\n","token_display":".'));\\n","score":12.344700813293457,"normalized_score":0.9267330765724182},{"token_id":82815,"token_text":".\"),","token_display":".\"),","score":12.106339454650879,"normalized_score":0.9197953343391418},{"token_id":95815,"token_text":"']));","token_display":"']));","score":11.93200969696045,"normalized_score":0.9147212505340576},{"token_id":115220,"token_text":"苍白","token_display":"苍白","score":11.59168529510498,"normalized_score":0.9048157334327698}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.6330827067669172},"activation_norm":7.8225297927856445,"transported_norm":8.34952163696289,"is_model_output":false},{"layer":4,"position":4,"jlens_top":[{"token_id":7190,"token_text":":\\","token_display":":\\","score":18.98111343383789,"normalized_score":1.0},{"token_id":510,"token_text":":\n","token_display":":\\n","score":18.43021011352539,"normalized_score":0.9831886291503906},{"token_id":23817,"token_text":":\\\\","token_display":":\\\\","score":17.825897216796875,"normalized_score":0.9647474884986877},{"token_id":4102,"token_text":" ","token_display":" ","score":17.08518409729004,"normalized_score":0.942143976688385},{"token_id":14223,"token_text":":\n\n\n\n","token_display":":\\n\\n\\n\\n","score":16.840351104736328,"normalized_score":0.9346725940704346},{"token_id":7110,"token_text":".\\","token_display":".\\","score":16.623699188232422,"normalized_score":0.9280612468719482},{"token_id":24391,"token_text":":\n\n\n","token_display":":\\n\\n\\n","score":16.545656204223633,"normalized_score":0.9256797432899475},{"token_id":2012,"token_text":".\n\n\n\n","token_display":".\\n\\n\\n\\n","score":16.433286666870117,"normalized_score":0.9222506880760193},{"token_id":7764,"token_text":":<\/","token_display":":<\/","score":16.258846282958984,"normalized_score":0.9169273972511292},{"token_id":50950,"token_text":" \n","token_display":" \\n","score":16.223793029785156,"normalized_score":0.91585773229599}],"logit_lens_top":[{"token_id":70982,"token_text":".','","token_display":".','","score":13.007015228271484,"normalized_score":1.0},{"token_id":230,"token_text":"�","token_display":"�","score":12.435304641723633,"normalized_score":0.9827241897583008},{"token_id":22179,"token_text":".Options","token_display":".Options","score":10.542813301086426,"normalized_score":0.9255372285842896},{"token_id":127413,"token_text":"апр","token_display":"апр","score":10.002580642700195,"normalized_score":0.9092125296592712},{"token_id":98964,"token_text":"';\";\n","token_display":"';\";\\n","score":9.87016773223877,"normalized_score":0.905211329460144},{"token_id":85045,"token_text":"ิน","token_display":"ิน","score":9.611066818237305,"normalized_score":0.8973818421363831},{"token_id":117674,"token_text":"什麽","token_display":"什麽","score":9.294650077819824,"normalized_score":0.8878203630447388},{"token_id":66378,"token_text":".getM","token_display":".getM","score":9.219902038574219,"normalized_score":0.8855616450309753},{"token_id":89901,"token_text":"apot","token_display":"apot","score":9.177444458007812,"normalized_score":0.8842787146568298},{"token_id":2027,"token_text":"ape","token_display":"ape","score":9.167646408081055,"normalized_score":0.8839825987815857}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.6571428571428571},"activation_norm":10.474401473999023,"transported_norm":9.576891899108887,"is_model_output":false},{"layer":8,"position":4,"jlens_top":[{"token_id":50950,"token_text":" \n","token_display":" \\n","score":16.344768524169922,"normalized_score":1.0},{"token_id":12095,"token_text":" Paris","token_display":" Paris","score":15.034431457519531,"normalized_score":0.9522061347961426},{"token_id":4102,"token_text":" ","token_display":" ","score":15.024991035461426,"normalized_score":0.9518617391586304},{"token_id":8585,"token_text":" French","token_display":" French","score":14.597729682922363,"normalized_score":0.9362776279449463},{"token_id":3283,"token_text":" city","token_display":" city","score":14.502474784851074,"normalized_score":0.9328032732009888},{"token_id":48116,"token_text":".”\n","token_display":".”\\n","score":14.374089241027832,"normalized_score":0.9281204342842102},{"token_id":1987,"token_text":".”","token_display":".”","score":14.310016632080078,"normalized_score":0.9257834553718567},{"token_id":9625,"token_text":" France","token_display":" France","score":14.165610313415527,"normalized_score":0.920516312122345},{"token_id":9336,"token_text":"”,","token_display":"”,","score":13.938342094421387,"normalized_score":0.9122268557548523},{"token_id":510,"token_text":":\n","token_display":":\\n","score":13.936410903930664,"normalized_score":0.912156343460083}],"logit_lens_top":[{"token_id":98964,"token_text":"';\";\n","token_display":"';\";\\n","score":14.65404224395752,"normalized_score":1.0},{"token_id":77136,"token_text":"*****\r\n","token_display":"*****�\\n","score":14.16379165649414,"normalized_score":0.9868326783180237},{"token_id":80098,"token_text":".toFloat","token_display":".toFloat","score":13.809056282043457,"normalized_score":0.977304995059967},{"token_id":58324,"token_text":"\",\"#","token_display":"\",\"#","score":13.55920124053955,"normalized_score":0.9705942869186401},{"token_id":93045,"token_text":"')));\n\n","token_display":"')));\\n\\n","score":13.464784622192383,"normalized_score":0.9680584669113159},{"token_id":37366,"token_text":"\",@\"","token_display":"\",@\"","score":12.969298362731934,"normalized_score":0.9547504782676697},{"token_id":80309,"token_text":"announcement","token_display":"announcement","score":12.107165336608887,"normalized_score":0.9315949082374573},{"token_id":132339,"token_text":"ело","token_display":"ело","score":12.102139472961426,"normalized_score":0.9314598441123962},{"token_id":53119,"token_text":"holds","token_display":"holds","score":12.070876121520996,"normalized_score":0.9306202530860901},{"token_id":56268,"token_text":"',...\n","token_display":"',...\\n","score":11.879565238952637,"normalized_score":0.925481915473938}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.6481203007518797},"activation_norm":13.985879898071289,"transported_norm":18.542964935302734,"is_model_output":false},{"layer":12,"position":4,"jlens_top":[{"token_id":12095,"token_text":" Paris","token_display":" Paris","score":14.858072280883789,"normalized_score":1.0},{"token_id":50950,"token_text":" \n","token_display":" \\n","score":14.432063102722168,"normalized_score":0.9843037724494934},{"token_id":87693,"token_text":" Marseille","token_display":" Marseille","score":14.383010864257812,"normalized_score":0.9824965000152588},{"token_id":14223,"token_text":":\n\n\n\n","token_display":":\\n\\n\\n\\n","score":14.115354537963867,"normalized_score":0.9726346135139465},{"token_id":510,"token_text":":\n","token_display":":\\n","score":13.835457801818848,"normalized_score":0.9623218774795532},{"token_id":94432,"token_text":"？\n","token_display":"？\\n","score":13.665513038635254,"normalized_score":0.9560602903366089},{"token_id":9625,"token_text":" France","token_display":" France","score":13.499368667602539,"normalized_score":0.9499387145042419},{"token_id":24081,"token_text":" Madrid","token_display":" Madrid","score":13.261504173278809,"normalized_score":0.9411746263504028},{"token_id":34038,"token_text":" Dubai","token_display":" Dubai","score":13.096522331237793,"normalized_score":0.9350959062576294},{"token_id":3283,"token_text":" city","token_display":" city","score":13.024828910827637,"normalized_score":0.9324543476104736}],"logit_lens_top":[{"token_id":141808,"token_text":"уницип","token_display":"уницип","score":12.777413368225098,"normalized_score":1.0},{"token_id":98964,"token_text":"';\";\n","token_display":"';\";\\n","score":12.146648406982422,"normalized_score":0.9800732731819153},{"token_id":127413,"token_text":"апр","token_display":"апр","score":11.407432556152344,"normalized_score":0.9567203521728516},{"token_id":119922,"token_text":"肼","token_display":"肼","score":10.915539741516113,"normalized_score":0.9411807656288147},{"token_id":75769,"token_text":"?>>","token_display":"?>>","score":10.839376449584961,"normalized_score":0.9387746453285217},{"token_id":56572,"token_text":" gw","token_display":" gw","score":10.52452564239502,"normalized_score":0.9288280606269836},{"token_id":127049,"token_text":"росс","token_display":"росс","score":10.493280410766602,"normalized_score":0.9278410077095032},{"token_id":58450,"token_text":"translations","token_display":"translations","score":10.37705135345459,"normalized_score":0.9241691827774048},{"token_id":127053,"token_text":"менно","token_display":"менно","score":10.10557746887207,"normalized_score":0.9155929088592529},{"token_id":58291,"token_text":"!=(","token_display":"!=(","score":10.072687149047852,"normalized_score":0.9145538806915283}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.7984962406015037},"activation_norm":16.406057357788086,"transported_norm":22.969205856323242,"is_model_output":false},{"layer":16,"position":4,"jlens_top":[{"token_id":2130,"token_text":"____","token_display":"____","score":26.447355270385742,"normalized_score":1.0},{"token_id":3979,"token_text":"________","token_display":"________","score":24.39553451538086,"normalized_score":0.946193277835846},{"token_id":41383,"token_text":"____________","token_display":"____________","score":23.6523380279541,"normalized_score":0.9267038106918335},{"token_id":80517,"token_text":"_____","token_display":"_____","score":23.27558708190918,"normalized_score":0.9168239235877991},{"token_id":30743,"token_text":" ____","token_display":" ____","score":23.262042999267578,"normalized_score":0.9164687395095825},{"token_id":32671,"token_text":" ______","token_display":" ______","score":22.80573844909668,"normalized_score":0.9045026898384094},{"token_id":60288,"token_text":"___\n\n","token_display":"___\\n\\n","score":21.746549606323242,"normalized_score":0.8767266869544983},{"token_id":26850,"token_text":"？\n\n","token_display":"？\\n\\n","score":21.414936065673828,"normalized_score":0.8680304288864136},{"token_id":12148,"token_text":"__\n","token_display":"__\\n","score":21.362281799316406,"normalized_score":0.8666497468948364},{"token_id":1304,"token_text":" __","token_display":" __","score":21.229366302490234,"normalized_score":0.8631640672683716}],"logit_lens_top":[{"token_id":30743,"token_text":" ____","token_display":" ____","score":14.966422080993652,"normalized_score":1.0},{"token_id":32671,"token_text":" ______","token_display":" ______","score":14.919286727905273,"normalized_score":0.9984492659568787},{"token_id":2130,"token_text":"____","token_display":"____","score":14.512990951538086,"normalized_score":0.9850828051567078},{"token_id":1304,"token_text":" __","token_display":" __","score":14.10794734954834,"normalized_score":0.9717575311660767},{"token_id":65892,"token_text":" _____","token_display":" _____","score":13.50153636932373,"normalized_score":0.9518075585365295},{"token_id":3979,"token_text":"________","token_display":"________","score":13.481945037841797,"normalized_score":0.9511629939079285},{"token_id":41383,"token_text":"____________","token_display":"____________","score":13.14787769317627,"normalized_score":0.9401727318763733},{"token_id":80517,"token_text":"_____","token_display":"_____","score":12.703425407409668,"normalized_score":0.9255509972572327},{"token_id":7436,"token_text":" ___","token_display":" ___","score":12.046738624572754,"normalized_score":0.9039469957351685},{"token_id":75769,"token_text":"?>>","token_display":"?>>","score":11.847457885742188,"normalized_score":0.8973909616470337}],"comparison":{"topk_overlap":0.7,"rank_correlation":0.38461538461538464},"activation_norm":24.766292572021484,"transported_norm":29.99237823486328,"is_model_output":false},{"layer":20,"position":4,"jlens_top":[{"token_id":2130,"token_text":"____","token_display":"____","score":23.056934356689453,"normalized_score":1.0},{"token_id":1304,"token_text":" __","token_display":" __","score":23.023174285888672,"normalized_score":0.9990227818489075},{"token_id":32671,"token_text":" ______","token_display":" ______","score":22.3237361907959,"normalized_score":0.9787766933441162},{"token_id":30743,"token_text":" ____","token_display":" ____","score":21.78131103515625,"normalized_score":0.9630755186080933},{"token_id":12095,"token_text":" Paris","token_display":" Paris","score":21.494022369384766,"normalized_score":0.9547594785690308},{"token_id":65892,"token_text":" _____","token_display":" _____","score":20.753856658935547,"normalized_score":0.9333344101905823},{"token_id":3979,"token_text":"________","token_display":"________","score":20.731605529785156,"normalized_score":0.932690441608429},{"token_id":80517,"token_text":"_____","token_display":"_____","score":19.49018669128418,"normalized_score":0.8967559337615967},{"token_id":41383,"token_text":"____________","token_display":"____________","score":19.459300994873047,"normalized_score":0.8958619236946106},{"token_id":7436,"token_text":" ___","token_display":" ___","score":19.361679077148438,"normalized_score":0.8930361270904541}],"logit_lens_top":[{"token_id":1304,"token_text":" __","token_display":" __","score":17.15729522705078,"normalized_score":1.0},{"token_id":2130,"token_text":"____","token_display":"____","score":16.02818489074707,"normalized_score":0.9585780501365662},{"token_id":30743,"token_text":" ____","token_display":" ____","score":14.824118614196777,"normalized_score":0.9144062995910645},{"token_id":32671,"token_text":" ______","token_display":" ______","score":14.806907653808594,"normalized_score":0.9137749671936035},{"token_id":3979,"token_text":"________","token_display":"________","score":14.042356491088867,"normalized_score":0.885727047920227},{"token_id":78838,"token_text":" ()->","token_display":" ()->","score":13.715384483337402,"normalized_score":0.8737319111824036},{"token_id":32805,"token_text":" ()\n\n","token_display":" ()\\n\\n","score":13.624131202697754,"normalized_score":0.8703842759132385},{"token_id":7436,"token_text":" ___","token_display":" ___","score":13.514656066894531,"normalized_score":0.8663681149482727},{"token_id":65892,"token_text":" _____","token_display":" _____","score":13.378978729248047,"normalized_score":0.8613907098770142},{"token_id":27876,"token_text":" **)","token_display":" **)","score":13.265253067016602,"normalized_score":0.8572186231613159}],"comparison":{"topk_overlap":0.7,"rank_correlation":0.5439560439560439},"activation_norm":50.64818572998047,"transported_norm":55.57328414916992,"is_model_output":false},{"layer":23,"position":4,"jlens_top":[{"token_id":12095,"token_text":" Paris","token_display":" Paris","score":17.217294692993164,"normalized_score":1.0},{"token_id":32671,"token_text":" ______","token_display":" ______","score":16.319629669189453,"normalized_score":0.9716929793357849},{"token_id":510,"token_text":":\n","token_display":":\\n","score":15.695459365844727,"normalized_score":0.952010452747345},{"token_id":1447,"token_text":":\n\n","token_display":":\\n\\n","score":15.571099281311035,"normalized_score":0.9480888843536377},{"token_id":1304,"token_text":" __","token_display":" __","score":15.386895179748535,"normalized_score":0.9422801733016968},{"token_id":30743,"token_text":" ____","token_display":" ____","score":15.303553581237793,"normalized_score":0.9396520853042603},{"token_id":7407,"token_text":" located","token_display":" located","score":15.277217864990234,"normalized_score":0.9388216137886047},{"token_id":279,"token_text":" the","token_display":" the","score":15.04822826385498,"normalized_score":0.9316006898880005},{"token_id":320,"token_text":" (","token_display":" (","score":14.687641143798828,"normalized_score":0.9202299118041992},{"token_id":508,"token_text":" [","token_display":" [","score":14.558897018432617,"normalized_score":0.9161701202392578}],"logit_lens_top":[{"token_id":12095,"token_text":" Paris","token_display":" Paris","score":17.217294692993164,"normalized_score":1.0},{"token_id":32671,"token_text":" ______","token_display":" ______","score":16.319629669189453,"normalized_score":0.9716929793357849},{"token_id":510,"token_text":":\n","token_display":":\\n","score":15.695459365844727,"normalized_score":0.952010452747345},{"token_id":1447,"token_text":":\n\n","token_display":":\\n\\n","score":15.571099281311035,"normalized_score":0.9480888843536377},{"token_id":1304,"token_text":" __","token_display":" __","score":15.386895179748535,"normalized_score":0.9422801733016968},{"token_id":30743,"token_text":" ____","token_display":" ____","score":15.303553581237793,"normalized_score":0.9396520853042603},{"token_id":7407,"token_text":" located","token_display":" located","score":15.277217864990234,"normalized_score":0.9388216137886047},{"token_id":279,"token_text":" the","token_display":" the","score":15.04822826385498,"normalized_score":0.9316006898880005},{"token_id":320,"token_text":" (","token_display":" (","score":14.687641143798828,"normalized_score":0.9202299118041992},{"token_id":508,"token_text":" [","token_display":" [","score":14.558897018432617,"normalized_score":0.9161701202392578}],"comparison":{"topk_overlap":1.0,"rank_correlation":1.0},"activation_norm":64.69309997558594,"transported_norm":64.69309997558594,"is_model_output":true}],"tracked":[],"decompositions":[],"images":[]}</script>
+<script>
+"use strict";
+const RUN = JSON.parse(document.getElementById("run-data").textContent);
+const meta = RUN.metadata;
+const cells = new Map();
+for (const c of RUN.cells) cells.set(c.layer + ":" + c.position, c);
+const positions = [...new Set(RUN.cells.map(c => c.position))].sort((a, b) => a - b);
+const layers = [...new Set(RUN.cells.map(c => c.layer))].sort((a, b) => b - a);
+const posInfo = new Map(RUN.positions.map(p => [p.index, p]));
+
+document.getElementById("runmeta").textContent =
+  `model ${meta.model_id} · ${meta.layers.length} layers × ${meta.n_positions} positions · ` +
+  `top-${meta.top_k} · ${meta.created_at}`;
+document.getElementById("disclaimer").textContent = meta.disclaimer;
+document.getElementById("warnings").innerHTML =
+  (meta.warnings || []).map(w => "⚠ " + escapeHtml(w)).join("<br>");
+
+const kv = document.getElementById("metakv");
+const lm = meta.lens_metadata || {};
+for (const [k, v] of [["prompt", meta.prompt], ["run id", meta.run_id],
+  ["device", meta.device], ["dtype", meta.dtype], ["lens", meta.lens_path],
+  ["fit prompts", lm.number_of_prompts], ["residual location", lm.residual_location],
+  ["patch mapping", meta.patch_mapping]]) {
+  if (v === undefined || v === "") continue;
+  const dt = document.createElement("dt"); dt.textContent = k;
+  const dd = document.createElement("dd"); dd.textContent = String(v);
+  kv.append(dt, dd);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+}
+function heat(score) {
+  const s = Math.max(0, Math.min(1, score));
+  return `rgba(110,168,254,${(0.06 + 0.5 * s).toFixed(3)})`;
+}
+
+const wrap = document.getElementById("gridwrap");
+const table = document.createElement("table");
+table.className = "grid";
+const thead = document.createElement("thead");
+const hrow = document.createElement("tr");
+hrow.appendChild(document.createElement("th")).textContent = "layer \\\\ pos";
+for (const p of positions) {
+  const info = posInfo.get(p);
+  const th = document.createElement("th");
+  th.textContent = `${p}\u00A0${info && info.token_text ? info.token_text.trim() || "·" : ""}`;
+  th.title = info ? `${info.modality} token ${info.token_id}` : "";
+  hrow.appendChild(th);
+}
+thead.appendChild(hrow); table.appendChild(thead);
+const tbody = document.createElement("tbody");
+for (const layer of layers) {
+  const tr = document.createElement("tr");
+  const anyCell = cells.get(layer + ":" + positions[0]);
+  const isOutput = anyCell && anyCell.is_model_output;
+  if (isOutput) tr.className = "output-row";
+  const th = document.createElement("th");
+  th.textContent = isOutput ? `L${layer} (output)` : `L${layer}`;
+  tr.appendChild(th);
+  for (const p of positions) {
+    const cell = cells.get(layer + ":" + p);
+    const td = document.createElement("td");
+    td.className = "cell";
+    if (cell) {
+      const top = cell.jlens_top[0];
+      const info = posInfo.get(p);
+      if (info) td.classList.add("mod-" + info.modality);
+      td.textContent = top ? (top.token_display.trim() || "·") : "";
+      td.style.background = top ? heat(top.normalized_score) : "transparent";
+      td.addEventListener("click", () => select(layer, p, td));
+      td.addEventListener("mousemove", e => showTip(e, cell, info));
+      td.addEventListener("mouseleave", hideTip);
+    }
+    tr.appendChild(td);
+  }
+  tbody.appendChild(tr);
+}
+table.appendChild(tbody); wrap.appendChild(table);
+
+const tip = document.getElementById("tooltip");
+function showTip(e, cell, info) {
+  const rows = cell.jlens_top.slice(0, 10).map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.score.toFixed(2)}</td></tr>`).join("");
+  tip.innerHTML =
+    `<b>L${cell.layer} · pos ${cell.position}</b>` +
+    (info ? ` · ${info.modality} · source <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    `<br>‖h‖=${cell.activation_norm.toFixed(1)} ‖Jh‖=${cell.transported_norm.toFixed(1)}` +
+    `<table class="detail"><tr><th>#</th><th>top J-lens concepts</th><th>lens score</th></tr>${rows}</table>`;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + "px";
+  tip.style.top = Math.min(e.clientY + 14, innerHeight - 260) + "px";
+}
+function hideTip() { tip.style.display = "none"; }
+
+let selectedTd = null;
+function select(layer, pos, td) {
+  if (selectedTd) selectedTd.classList.remove("selected");
+  selectedTd = td; td.classList.add("selected");
+  const cell = cells.get(layer + ":" + pos);
+  const info = posInfo.get(pos);
+  const mk = (entries) => entries.map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.token_id}</td><td>${t.score.toFixed(2)}</td>` +
+    `<td>${t.normalized_score.toFixed(2)}</td></tr>`).join("");
+  document.getElementById("celldetail").innerHTML =
+    `<div class="mutetext">L${layer} · position ${pos}` +
+    (info ? ` · ${info.modality} · source token <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    (cell.is_model_output ? " · <b>model output distribution</b>" : "") + `</div>` +
+    `<table class="detail"><tr><th>#</th><th>concept</th><th>id</th><th>lens score</th><th>norm.</th></tr>` +
+    mk(cell.jlens_top) + `</table>`;
+  const cmp = cell.comparison || {};
+  document.getElementById("comparison").innerHTML =
+    (cell.is_model_output
+      ? `<div class="mutetext">Final layer: J-lens row equals the model output.</div>`
+      : `<div class="mutetext">top-${meta.top_k} overlap ` +
+        `<b>${(cmp.topk_overlap ?? 0).toFixed(2)}</b> · rank corr ` +
+        `<b>${(cmp.rank_correlation ?? 0).toFixed(2)}</b></div>`) +
+    `<table class="detail"><tr><th>#</th><th>logit-lens concept</th><th>score</th></tr>` +
+    cell.logit_lens_top.slice(0, 10).map((t, i) =>
+      `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+      `<td>${t.score.toFixed(2)}</td></tr>`).join("") + `</table>`;
+}
+</script>
+</body>
+</html>

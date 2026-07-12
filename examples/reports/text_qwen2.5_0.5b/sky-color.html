@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenJSpace report — On a clear day, the color of the sky is</title>
+<style>
+:root {
+  --bg: #0f1117; --panel: #171a23; --border: #2a2f3d; --text: #e6e8ee;
+  --muted: #9aa1b2; --accent: #6ea8fe; --warn: #f0b429;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+header h1 { margin: 0 0 4px; font-size: 18px; }
+header .meta { color: var(--muted); font-size: 12px; }
+.disclaimer { margin: 10px 24px; padding: 10px 14px; border: 1px solid var(--warn);
+  border-radius: 6px; color: var(--warn); font-size: 12px; background: rgba(240,180,41,.06); }
+.warnings { margin: 0 24px 10px; color: var(--warn); font-size: 12px; }
+main { display: flex; gap: 16px; padding: 12px 24px 32px; align-items: flex-start; }
+#gridwrap { overflow: auto; max-height: 72vh; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--panel); flex: 1 1 auto; }
+table.grid { border-collapse: collapse; font-size: 11px; }
+table.grid th, table.grid td { border: 1px solid var(--border); padding: 2px 6px;
+  white-space: nowrap; text-align: center; }
+table.grid th { position: sticky; background: #1d2130; z-index: 2; }
+table.grid thead th { top: 0; }
+table.grid tbody th { left: 0; }
+td.cell { cursor: pointer; min-width: 52px; max-width: 110px; overflow: hidden;
+  text-overflow: ellipsis; color: #dfe3ec; }
+td.cell.selected { outline: 2px solid var(--accent); outline-offset: -2px; }
+td.cell.mod-image_token { border-bottom: 2px solid #59c9a5; }
+td.cell.mod-image_boundary { border-bottom: 2px dashed #59c9a5; }
+td.cell.mod-special { border-bottom: 2px dotted #b48ef0; }
+tr.output-row th, tr.output-row td { border-top: 2px solid var(--accent); }
+#side { flex: 0 0 380px; display: flex; flex-direction: column; gap: 12px; }
+.panel { border: 1px solid var(--border); border-radius: 8px; background: var(--panel);
+  padding: 12px 14px; }
+.panel h2 { margin: 0 0 8px; font-size: 13px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .05em; }
+table.detail { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.detail td, table.detail th { padding: 2px 6px; text-align: left;
+  border-bottom: 1px solid var(--border); }
+table.detail th { color: var(--muted); font-weight: 500; }
+.tok { font-family: ui-monospace, monospace; background: #232838; border-radius: 4px;
+  padding: 0 4px; }
+.mutetext { color: var(--muted); font-size: 12px; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 12px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; word-break: break-all; }
+#tooltip { position: fixed; display: none; z-index: 10; background: #1d2130;
+  border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px;
+  font-size: 11px; max-width: 340px; pointer-events: none; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+<header>
+  <h1>OpenJSpace report — On a clear day, the color of the sky is</h1>
+  <div class="meta" id="runmeta"></div>
+</header>
+<div class="disclaimer" id="disclaimer"></div>
+<div class="warnings" id="warnings"></div>
+<main>
+  <div id="gridwrap"></div>
+  <div id="side">
+    <div class="panel"><h2>Selected cell</h2><div id="celldetail" class="mutetext">
+      Click a cell in the grid to inspect its top J-lens concepts.</div></div>
+    <div class="panel"><h2>Lens comparison</h2><div id="comparison" class="mutetext">—</div></div>
+    <div class="panel"><h2>Run metadata</h2><dl class="kv" id="metakv"></dl></div>
+  </div>
+</main>
+<div id="tooltip"></div>
+<script id="run-data" type="application/json">{"schema_version":1,"metadata":{"run_id":"54a4db4484d4","created_at":"2026-07-12T18:13:52+00:00","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_architecture":"Qwen2ForCausalLM","model_kind":"text","device":"cpu","dtype":"torch.float32","lens_path":"/workspace/artifacts/qwen2.5-0.5b-instruct-demo","lens_metadata":{"format_version":1,"method":"jacobian_lens","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_revision":null,"model_architecture":"Qwen2ForCausalLM","tokenizer_id":"Qwen/Qwen2.5-0.5B-Instruct","tokenizer_revision":null,"hidden_size":896,"vocab_size":151936,"n_layers":24,"source_layers":[2,4,8,12,16,20],"target_layer":23,"residual_location":"block_output","sequence_length":64,"skip_first_positions":16,"number_of_prompts":24,"number_of_valid_positions":1128,"dtype_used_for_model":"torch.float32","dtype_used_for_accumulation":"float32","fitting_dataset":"wikitext (num_prompts=24, seed=0, shard=0/1)","created_at":"2026-07-12T18:11:51+00:00","library_versions":{"python":"3.12.3","torch":"2.13.0+cpu","safetensors":"0.8.0","transformers":"5.13.1"},"notes":""},"prompt":"On a clear day, the color of the sky is","used_chat_template":false,"layers":[2,4,8,12,16,20,23],"top_k":10,"n_positions":1,"patch_mapping":"unavailable","disclaimer":"Jacobian-lens readouts are approximate concept readouts: corpus-averaged, linearized transports of residual-stream activations decoded through the model's own unembedding. They surface verbalizable activation directions — not literal 'thoughts' — and scores are rankings, not calibrated probabilities. Causal claims require interventions, not visualization.","warnings":[]},"positions":[{"index":0,"modality":"text","token_id":1925,"token_text":"On","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":1,"modality":"text","token_id":264,"token_text":" a","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":2,"modality":"text","token_id":2797,"token_text":" clear","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":3,"modality":"text","token_id":1899,"token_text":" day","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":4,"modality":"text","token_id":11,"token_text":",","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":5,"modality":"text","token_id":279,"token_text":" the","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":6,"modality":"text","token_id":1894,"token_text":" color","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":7,"modality":"text","token_id":315,"token_text":" of","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":8,"modality":"text","token_id":279,"token_text":" the","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":9,"modality":"text","token_id":12884,"token_text":" sky","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":10,"modality":"text","token_id":374,"token_text":" is","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null}],"cells":[{"layer":2,"position":10,"jlens_top":[{"token_id":24391,"token_text":":\n\n\n","token_display":":\\n\\n\\n","score":14.081764221191406,"normalized_score":1.0},{"token_id":14223,"token_text":":\n\n\n\n","token_display":":\\n\\n\\n\\n","score":13.495019912719727,"normalized_score":0.9783899188041687},{"token_id":2012,"token_text":".\n\n\n\n","token_display":".\\n\\n\\n\\n","score":13.478489875793457,"normalized_score":0.9777810573577881},{"token_id":7873,"token_text":".[","token_display":".[","score":13.187370300292969,"normalized_score":0.9670588970184326},{"token_id":74123,"token_text":".\n\n\n\n\n","token_display":".\\n\\n\\n\\n\\n","score":13.036009788513184,"normalized_score":0.9614842534065247},{"token_id":510,"token_text":":\n","token_display":":\\n","score":12.904131889343262,"normalized_score":0.9566271305084229},{"token_id":4192,"token_text":".\n\n\n","token_display":".\\n\\n\\n","score":12.832627296447754,"normalized_score":0.953993558883667},{"token_id":4102,"token_text":" ","token_display":" ","score":12.760563850402832,"normalized_score":0.9513394236564636},{"token_id":5810,"token_text":" natural","token_display":" natural","score":12.64173412322998,"normalized_score":0.946962833404541},{"token_id":11,"token_text":",","token_display":",","score":12.342327117919922,"normalized_score":0.9359354376792908}],"logit_lens_top":[{"token_id":98964,"token_text":"';\";\n","token_display":"';\";\\n","score":15.98038387298584,"normalized_score":1.0},{"token_id":70982,"token_text":".','","token_display":".','","score":15.36623764038086,"normalized_score":0.9815866947174072},{"token_id":77355,"token_text":".\";","token_display":".\";","score":14.887886047363281,"normalized_score":0.9672446250915527},{"token_id":79895,"token_text":":')","token_display":":')","score":14.175498962402344,"normalized_score":0.9458858370780945},{"token_id":71471,"token_text":"\")));","token_display":"\")));","score":13.916139602661133,"normalized_score":0.9381096959114075},{"token_id":130306,"token_text":"нстру","token_display":"нстру","score":13.425464630126953,"normalized_score":0.9233982563018799},{"token_id":115220,"token_text":"苍白","token_display":"苍白","score":13.382232666015625,"normalized_score":0.9221020936965942},{"token_id":88349,"token_text":",\");\n","token_display":",\");\\n","score":13.076584815979004,"normalized_score":0.9129381775856018},{"token_id":54136,"token_text":".\"));\n","token_display":".\"));\\n","score":12.78538990020752,"normalized_score":0.9042075276374817},{"token_id":22749,"token_text":" Hold","token_display":" Hold","score":12.73078441619873,"normalized_score":0.9025703072547913}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.6947368421052632},"activation_norm":7.338794708251953,"transported_norm":8.009641647338867,"is_model_output":false},{"layer":4,"position":10,"jlens_top":[{"token_id":7190,"token_text":":\\","token_display":":\\","score":17.929471969604492,"normalized_score":1.0},{"token_id":7110,"token_text":".\\","token_display":".\\","score":17.685749053955078,"normalized_score":0.9918043613433838},{"token_id":510,"token_text":":\n","token_display":":\\n","score":17.54969596862793,"normalized_score":0.9872292280197144},{"token_id":23817,"token_text":":\\\\","token_display":":\\\\","score":17.163911819458008,"normalized_score":0.9742564558982849},{"token_id":15146,"token_text":"\"):\n","token_display":"\"):\\n","score":17.106210708618164,"normalized_score":0.9723161458969116},{"token_id":34403,"token_text":":\")\n","token_display":":\")\\n","score":16.861309051513672,"normalized_score":0.9640809297561646},{"token_id":58359,"token_text":"。（","token_display":"。（","score":16.408519744873047,"normalized_score":0.948854923248291},{"token_id":14442,"token_text":".\"\"\"\n","token_display":".\"\"\"\\n","score":16.192529678344727,"normalized_score":0.941591739654541},{"token_id":24305,"token_text":":\");\n","token_display":":\");\\n","score":16.177146911621094,"normalized_score":0.941074550151825},{"token_id":32620,"token_text":"?\\","token_display":"?\\","score":15.908567428588867,"normalized_score":0.9320429563522339}],"logit_lens_top":[{"token_id":70982,"token_text":".','","token_display":".','","score":15.747761726379395,"normalized_score":1.0},{"token_id":98964,"token_text":"';\";\n","token_display":"';\";\\n","score":15.533520698547363,"normalized_score":0.993150532245636},{"token_id":84898,"token_text":"！');\n","token_display":"！');\\n","score":13.950858116149902,"normalized_score":0.9425515532493591},{"token_id":97469,"token_text":".',\r\n","token_display":".',�\\n","score":13.564286231994629,"normalized_score":0.9301925301551819},{"token_id":78254,"token_text":".');\r\n","token_display":".');�\\n","score":13.56287670135498,"normalized_score":0.9301474690437317},{"token_id":27821,"token_text":"appers","token_display":"appers","score":13.468147277832031,"normalized_score":0.9271189570426941},{"token_id":88349,"token_text":",\");\n","token_display":",\");\\n","score":13.311844825744629,"normalized_score":0.9221217632293701},{"token_id":17118,"token_text":".');\n","token_display":".');\\n","score":12.81723403930664,"normalized_score":0.9063087105751038},{"token_id":82304,"token_text":"],&","token_display":"],&","score":12.814790725708008,"normalized_score":0.9062305688858032},{"token_id":77355,"token_text":".\";","token_display":".\";","score":12.416014671325684,"normalized_score":0.8934813737869263}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.7578947368421053},"activation_norm":10.206913948059082,"transported_norm":10.438302040100098,"is_model_output":false},{"layer":8,"position":10,"jlens_top":[{"token_id":48116,"token_text":".”\n","token_display":".”\\n","score":15.257246017456055,"normalized_score":1.0},{"token_id":58359,"token_text":"。（","token_display":"。（","score":14.527456283569336,"normalized_score":0.9730710983276367},{"token_id":14442,"token_text":".\"\"\"\n","token_display":".\"\"\"\\n","score":14.038590431213379,"normalized_score":0.9550321698188782},{"token_id":715,"token_text":" \n","token_display":" \\n","score":14.017037391662598,"normalized_score":0.9542368650436401},{"token_id":30743,"token_text":" ____","token_display":" ____","score":13.933028221130371,"normalized_score":0.9511369466781616},{"token_id":13053,"token_text":".\")\n","token_display":".\")\\n","score":13.920262336730957,"normalized_score":0.9506658911705017},{"token_id":1987,"token_text":".”","token_display":".”","score":13.847406387329102,"normalized_score":0.947977602481842},{"token_id":34403,"token_text":":\")\n","token_display":":\")\\n","score":13.817764282226562,"normalized_score":0.9468837380409241},{"token_id":94432,"token_text":"？\n","token_display":"？\\n","score":13.789430618286133,"normalized_score":0.9458382725715637},{"token_id":28311,"token_text":"：\n","token_display":"：\\n","score":13.671357154846191,"normalized_score":0.9414814114570618}],"logit_lens_top":[{"token_id":98964,"token_text":"';\";\n","token_display":"';\";\\n","score":20.88682746887207,"normalized_score":1.0},{"token_id":70982,"token_text":".','","token_display":".','","score":17.604015350341797,"normalized_score":0.9073950052261353},{"token_id":88349,"token_text":",\");\n","token_display":",\");\\n","score":17.186540603637695,"normalized_score":0.8956183791160583},{"token_id":82304,"token_text":"],&","token_display":"],&","score":16.145339965820312,"normalized_score":0.8662471771240234},{"token_id":78427,"token_text":"\",__","token_display":"\",__","score":15.467558860778809,"normalized_score":0.8471275568008423},{"token_id":50032,"token_text":"outu","token_display":"outu","score":15.354669570922852,"normalized_score":0.8439430594444275},{"token_id":120002,"token_text":"绂","token_display":"绂","score":15.346257209777832,"normalized_score":0.8437057733535767},{"token_id":58324,"token_text":"\",\"#","token_display":"\",\"#","score":15.180726051330566,"normalized_score":0.8390362858772278},{"token_id":38840,"token_text":"PEND","token_display":"PEND","score":15.121912956237793,"normalized_score":0.8373772501945496},{"token_id":49306,"token_text":"IBE","token_display":"IBE","score":15.06323528289795,"normalized_score":0.8357219696044922}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.718796992481203},"activation_norm":13.185216903686523,"transported_norm":15.980670928955078,"is_model_output":false},{"layer":12,"position":10,"jlens_top":[{"token_id":30743,"token_text":" ____","token_display":" ____","score":17.00491714477539,"normalized_score":1.0},{"token_id":2130,"token_text":"____","token_display":"____","score":16.60244369506836,"normalized_score":0.9839965105056763},{"token_id":32671,"token_text":" ______","token_display":" ______","score":16.084644317626953,"normalized_score":0.9634073972702026},{"token_id":1304,"token_text":" __","token_display":" __","score":15.844621658325195,"normalized_score":0.9538634419441223},{"token_id":94432,"token_text":"？\n","token_display":"？\\n","score":15.798697471618652,"normalized_score":0.9520373344421387},{"token_id":65892,"token_text":" _____","token_display":" _____","score":15.632731437683105,"normalized_score":0.945438027381897},{"token_id":70828,"token_text":"?\")\n","token_display":"?\")\\n","score":15.095355987548828,"normalized_score":0.9240705370903015},{"token_id":32620,"token_text":"?\\","token_display":"?\\","score":14.865594863891602,"normalized_score":0.9149345755577087},{"token_id":58359,"token_text":"。（","token_display":"。（","score":14.810308456420898,"normalized_score":0.9127362370491028},{"token_id":22988,"token_text":"!\")\n","token_display":"!\")\\n","score":14.7744140625,"normalized_score":0.911309003829956}],"logit_lens_top":[{"token_id":98964,"token_text":"';\";\n","token_display":"';\";\\n","score":13.421711921691895,"normalized_score":1.0},{"token_id":120002,"token_text":"绂","token_display":"绂","score":12.257291793823242,"normalized_score":0.9593010544776917},{"token_id":141808,"token_text":"уницип","token_display":"уницип","score":11.637356758117676,"normalized_score":0.9376330375671387},{"token_id":102784,"token_text":"斗争","token_display":"斗争","score":11.33823013305664,"normalized_score":0.9271779656410217},{"token_id":107561,"token_text":"颗粒","token_display":"颗粒","score":11.09457778930664,"normalized_score":0.9186618328094482},{"token_id":123326,"token_text":"酲","token_display":"酲","score":11.08741283416748,"normalized_score":0.918411374092102},{"token_id":125136,"token_text":"สด","token_display":"สด","score":10.88278865814209,"normalized_score":0.9112592935562134},{"token_id":144965,"token_text":"ㅤ","token_display":"ㅤ","score":10.779866218566895,"normalized_score":0.9076619744300842},{"token_id":120767,"token_text":"阍","token_display":"阍","score":10.693921089172363,"normalized_score":0.9046579599380493},{"token_id":68113,"token_text":".windows","token_display":".windows","score":10.66661262512207,"normalized_score":0.9037034511566162}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.7699248120300752},"activation_norm":16.238142013549805,"transported_norm":20.792753219604492,"is_model_output":false},{"layer":16,"position":10,"jlens_top":[{"token_id":2130,"token_text":"____","token_display":"____","score":18.287355422973633,"normalized_score":1.0},{"token_id":30743,"token_text":" ____","token_display":" ____","score":16.172332763671875,"normalized_score":0.9224745631217957},{"token_id":32671,"token_text":" ______","token_display":" ______","score":16.127391815185547,"normalized_score":0.9208272695541382},{"token_id":15206,"token_text":"weather","token_display":"weather","score":15.982295036315918,"normalized_score":0.9155088067054749},{"token_id":47613,"token_text":" rainbow","token_display":" rainbow","score":15.945159912109375,"normalized_score":0.9141476154327393},{"token_id":31252,"token_text":":<","token_display":":<","score":15.733901977539062,"normalized_score":0.9064040184020996},{"token_id":39020,"token_text":" sunlight","token_display":" sunlight","score":15.61568832397461,"normalized_score":0.902070939540863},{"token_id":50682,"token_text":"otope","token_display":"otope","score":15.594974517822266,"normalized_score":0.9013116955757141},{"token_id":73549,"token_text":" cloudy","token_display":" cloudy","score":15.455631256103516,"normalized_score":0.8962041139602661},{"token_id":39698,"token_text":" sunny","token_display":" sunny","score":15.453619003295898,"normalized_score":0.8961303234100342}],"logit_lens_top":[{"token_id":98964,"token_text":"';\";\n","token_display":"';\";\\n","score":10.351838111877441,"normalized_score":1.0},{"token_id":116189,"token_text":"各异","token_display":"各异","score":7.9762797355651855,"normalized_score":0.9135776162147522},{"token_id":144965,"token_text":"ㅤ","token_display":"ㅤ","score":7.825358867645264,"normalized_score":0.9080871343612671},{"token_id":58291,"token_text":"!=(","token_display":"!=(","score":7.717257976531982,"normalized_score":0.9041544795036316},{"token_id":3967,"token_text":"pha","token_display":"pha","score":7.698192119598389,"normalized_score":0.9034608602523804},{"token_id":136410,"token_text":"ображен","token_display":"ображен","score":7.673038959503174,"normalized_score":0.9025457501411438},{"token_id":129335,"token_text":"ул","token_display":"ул","score":7.45438289642334,"normalized_score":0.8945911526679993},{"token_id":7970,"token_text":"omin","token_display":"omin","score":7.390639305114746,"normalized_score":0.8922721147537231},{"token_id":264,"token_text":" a","token_display":" a","score":7.319712162017822,"normalized_score":0.8896917700767517},{"token_id":84770,"token_text":"FINITE","token_display":"FINITE","score":7.301812171936035,"normalized_score":0.8890405297279358}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.6225563909774436},"activation_norm":25.192956924438477,"transported_norm":28.88497543334961,"is_model_output":false},{"layer":20,"position":10,"jlens_top":[{"token_id":6303,"token_text":" blue","token_display":" blue","score":23.168563842773438,"normalized_score":1.0},{"token_id":47613,"token_text":" rainbow","token_display":" rainbow","score":22.38680076599121,"normalized_score":0.9772415161132812},{"token_id":27197,"token_text":" colored","token_display":" colored","score":21.98891830444336,"normalized_score":0.9656584858894348},{"token_id":1894,"token_text":" color","token_display":" color","score":21.629423141479492,"normalized_score":0.9551929235458374},{"token_id":9906,"token_text":" bright","token_display":" bright","score":20.90040397644043,"normalized_score":0.9339699745178223},{"token_id":24932,"token_text":" purple","token_display":" purple","score":20.575908660888672,"normalized_score":0.9245234131813049},{"token_id":79736,"token_text":" violet","token_display":" violet","score":20.382823944091797,"normalized_score":0.9189023971557617},{"token_id":13753,"token_text":" yellow","token_display":" yellow","score":20.288440704345703,"normalized_score":0.9161547422409058},{"token_id":18575,"token_text":" orange","token_display":" orange","score":19.919971466064453,"normalized_score":0.9054279327392578},{"token_id":6176,"token_text":" green","token_display":" green","score":19.771799087524414,"normalized_score":0.9011143445968628}],"logit_lens_top":[{"token_id":6303,"token_text":" blue","token_display":" blue","score":14.787609100341797,"normalized_score":1.0},{"token_id":1894,"token_text":" color","token_display":" color","score":12.49570369720459,"normalized_score":0.9148144125938416},{"token_id":6176,"token_text":" green","token_display":" green","score":11.711990356445312,"normalized_score":0.8856854438781738},{"token_id":13753,"token_text":" yellow","token_display":" yellow","score":11.506514549255371,"normalized_score":0.8780482411384583},{"token_id":7987,"token_text":" colors","token_display":" colors","score":11.383893966674805,"normalized_score":0.8734906911849976},{"token_id":2518,"token_text":" red","token_display":" red","score":11.279196739196777,"normalized_score":0.8695993423461914},{"token_id":3691,"token_text":" black","token_display":" black","score":11.241308212280273,"normalized_score":0.8681910634040833},{"token_id":79736,"token_text":" violet","token_display":" violet","score":11.188180923461914,"normalized_score":0.8662164211273193},{"token_id":18575,"token_text":" orange","token_display":" orange","score":11.111944198608398,"normalized_score":0.8633828163146973},{"token_id":47613,"token_text":" rainbow","token_display":" rainbow","score":11.100156784057617,"normalized_score":0.8629447221755981}],"comparison":{"topk_overlap":0.7,"rank_correlation":-0.12087912087912088},"activation_norm":56.316566467285156,"transported_norm":59.457801818847656,"is_model_output":false},{"layer":23,"position":10,"jlens_top":[{"token_id":6303,"token_text":" blue","token_display":" blue","score":17.20363426208496,"normalized_score":1.0},{"token_id":2677,"token_text":" always","token_display":" always","score":16.431081771850586,"normalized_score":0.9760586023330688},{"token_id":5990,"token_text":" usually","token_display":" usually","score":16.39822006225586,"normalized_score":0.9750401973724365},{"token_id":264,"token_text":" a","token_display":" a","score":16.285383224487305,"normalized_score":0.9715433716773987},{"token_id":3545,"token_text":" often","token_display":" often","score":16.07825469970703,"normalized_score":0.9651244878768921},{"token_id":10008,"token_text":" mostly","token_display":" mostly","score":15.884859085083008,"normalized_score":0.9591311812400818},{"token_id":4158,"token_text":" white","token_display":" white","score":15.503663063049316,"normalized_score":0.947317898273468},{"token_id":14576,"token_text":" mainly","token_display":" mainly","score":15.469658851623535,"normalized_score":0.9462640881538391},{"token_id":279,"token_text":" the","token_display":" the","score":15.257560729980469,"normalized_score":0.9396912455558777},{"token_id":11136,"token_text":" typically","token_display":" typically","score":15.173107147216797,"normalized_score":0.9370740056037903}],"logit_lens_top":[{"token_id":6303,"token_text":" blue","token_display":" blue","score":17.20363426208496,"normalized_score":1.0},{"token_id":2677,"token_text":" always","token_display":" always","score":16.431081771850586,"normalized_score":0.9760586023330688},{"token_id":5990,"token_text":" usually","token_display":" usually","score":16.39822006225586,"normalized_score":0.9750401973724365},{"token_id":264,"token_text":" a","token_display":" a","score":16.285383224487305,"normalized_score":0.9715433716773987},{"token_id":3545,"token_text":" often","token_display":" often","score":16.07825469970703,"normalized_score":0.9651244878768921},{"token_id":10008,"token_text":" mostly","token_display":" mostly","score":15.884859085083008,"normalized_score":0.9591311812400818},{"token_id":4158,"token_text":" white","token_display":" white","score":15.503663063049316,"normalized_score":0.947317898273468},{"token_id":14576,"token_text":" mainly","token_display":" mainly","score":15.469658851623535,"normalized_score":0.9462640881538391},{"token_id":279,"token_text":" the","token_display":" the","score":15.257560729980469,"normalized_score":0.9396912455558777},{"token_id":11136,"token_text":" typically","token_display":" typically","score":15.173107147216797,"normalized_score":0.9370740056037903}],"comparison":{"topk_overlap":1.0,"rank_correlation":1.0},"activation_norm":63.61735534667969,"transported_norm":63.61735534667969,"is_model_output":true}],"tracked":[],"decompositions":[],"images":[]}</script>
+<script>
+"use strict";
+const RUN = JSON.parse(document.getElementById("run-data").textContent);
+const meta = RUN.metadata;
+const cells = new Map();
+for (const c of RUN.cells) cells.set(c.layer + ":" + c.position, c);
+const positions = [...new Set(RUN.cells.map(c => c.position))].sort((a, b) => a - b);
+const layers = [...new Set(RUN.cells.map(c => c.layer))].sort((a, b) => b - a);
+const posInfo = new Map(RUN.positions.map(p => [p.index, p]));
+
+document.getElementById("runmeta").textContent =
+  `model ${meta.model_id} · ${meta.layers.length} layers × ${meta.n_positions} positions · ` +
+  `top-${meta.top_k} · ${meta.created_at}`;
+document.getElementById("disclaimer").textContent = meta.disclaimer;
+document.getElementById("warnings").innerHTML =
+  (meta.warnings || []).map(w => "⚠ " + escapeHtml(w)).join("<br>");
+
+const kv = document.getElementById("metakv");
+const lm = meta.lens_metadata || {};
+for (const [k, v] of [["prompt", meta.prompt], ["run id", meta.run_id],
+  ["device", meta.device], ["dtype", meta.dtype], ["lens", meta.lens_path],
+  ["fit prompts", lm.number_of_prompts], ["residual location", lm.residual_location],
+  ["patch mapping", meta.patch_mapping]]) {
+  if (v === undefined || v === "") continue;
+  const dt = document.createElement("dt"); dt.textContent = k;
+  const dd = document.createElement("dd"); dd.textContent = String(v);
+  kv.append(dt, dd);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+}
+function heat(score) {
+  const s = Math.max(0, Math.min(1, score));
+  return `rgba(110,168,254,${(0.06 + 0.5 * s).toFixed(3)})`;
+}
+
+const wrap = document.getElementById("gridwrap");
+const table = document.createElement("table");
+table.className = "grid";
+const thead = document.createElement("thead");
+const hrow = document.createElement("tr");
+hrow.appendChild(document.createElement("th")).textContent = "layer \\\\ pos";
+for (const p of positions) {
+  const info = posInfo.get(p);
+  const th = document.createElement("th");
+  th.textContent = `${p}\u00A0${info && info.token_text ? info.token_text.trim() || "·" : ""}`;
+  th.title = info ? `${info.modality} token ${info.token_id}` : "";
+  hrow.appendChild(th);
+}
+thead.appendChild(hrow); table.appendChild(thead);
+const tbody = document.createElement("tbody");
+for (const layer of layers) {
+  const tr = document.createElement("tr");
+  const anyCell = cells.get(layer + ":" + positions[0]);
+  const isOutput = anyCell && anyCell.is_model_output;
+  if (isOutput) tr.className = "output-row";
+  const th = document.createElement("th");
+  th.textContent = isOutput ? `L${layer} (output)` : `L${layer}`;
+  tr.appendChild(th);
+  for (const p of positions) {
+    const cell = cells.get(layer + ":" + p);
+    const td = document.createElement("td");
+    td.className = "cell";
+    if (cell) {
+      const top = cell.jlens_top[0];
+      const info = posInfo.get(p);
+      if (info) td.classList.add("mod-" + info.modality);
+      td.textContent = top ? (top.token_display.trim() || "·") : "";
+      td.style.background = top ? heat(top.normalized_score) : "transparent";
+      td.addEventListener("click", () => select(layer, p, td));
+      td.addEventListener("mousemove", e => showTip(e, cell, info));
+      td.addEventListener("mouseleave", hideTip);
+    }
+    tr.appendChild(td);
+  }
+  tbody.appendChild(tr);
+}
+table.appendChild(tbody); wrap.appendChild(table);
+
+const tip = document.getElementById("tooltip");
+function showTip(e, cell, info) {
+  const rows = cell.jlens_top.slice(0, 10).map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.score.toFixed(2)}</td></tr>`).join("");
+  tip.innerHTML =
+    `<b>L${cell.layer} · pos ${cell.position}</b>` +
+    (info ? ` · ${info.modality} · source <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    `<br>‖h‖=${cell.activation_norm.toFixed(1)} ‖Jh‖=${cell.transported_norm.toFixed(1)}` +
+    `<table class="detail"><tr><th>#</th><th>top J-lens concepts</th><th>lens score</th></tr>${rows}</table>`;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + "px";
+  tip.style.top = Math.min(e.clientY + 14, innerHeight - 260) + "px";
+}
+function hideTip() { tip.style.display = "none"; }
+
+let selectedTd = null;
+function select(layer, pos, td) {
+  if (selectedTd) selectedTd.classList.remove("selected");
+  selectedTd = td; td.classList.add("selected");
+  const cell = cells.get(layer + ":" + pos);
+  const info = posInfo.get(pos);
+  const mk = (entries) => entries.map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.token_id}</td><td>${t.score.toFixed(2)}</td>` +
+    `<td>${t.normalized_score.toFixed(2)}</td></tr>`).join("");
+  document.getElementById("celldetail").innerHTML =
+    `<div class="mutetext">L${layer} · position ${pos}` +
+    (info ? ` · ${info.modality} · source token <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    (cell.is_model_output ? " · <b>model output distribution</b>" : "") + `</div>` +
+    `<table class="detail"><tr><th>#</th><th>concept</th><th>id</th><th>lens score</th><th>norm.</th></tr>` +
+    mk(cell.jlens_top) + `</table>`;
+  const cmp = cell.comparison || {};
+  document.getElementById("comparison").innerHTML =
+    (cell.is_model_output
+      ? `<div class="mutetext">Final layer: J-lens row equals the model output.</div>`
+      : `<div class="mutetext">top-${meta.top_k} overlap ` +
+        `<b>${(cmp.topk_overlap ?? 0).toFixed(2)}</b> · rank corr ` +
+        `<b>${(cmp.rank_correlation ?? 0).toFixed(2)}</b></div>`) +
+    `<table class="detail"><tr><th>#</th><th>logit-lens concept</th><th>score</th></tr>` +
+    cell.logit_lens_top.slice(0, 10).map((t, i) =>
+      `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+      `<td>${t.score.toFixed(2)}</td></tr>`).join("") + `</table>`;
+}
+</script>
+</body>
+</html>

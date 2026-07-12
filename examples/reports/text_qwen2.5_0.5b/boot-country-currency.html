@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenJSpace report — The currency of the country shaped like a boot is the</title>
+<style>
+:root {
+  --bg: #0f1117; --panel: #171a23; --border: #2a2f3d; --text: #e6e8ee;
+  --muted: #9aa1b2; --accent: #6ea8fe; --warn: #f0b429;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+header h1 { margin: 0 0 4px; font-size: 18px; }
+header .meta { color: var(--muted); font-size: 12px; }
+.disclaimer { margin: 10px 24px; padding: 10px 14px; border: 1px solid var(--warn);
+  border-radius: 6px; color: var(--warn); font-size: 12px; background: rgba(240,180,41,.06); }
+.warnings { margin: 0 24px 10px; color: var(--warn); font-size: 12px; }
+main { display: flex; gap: 16px; padding: 12px 24px 32px; align-items: flex-start; }
+#gridwrap { overflow: auto; max-height: 72vh; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--panel); flex: 1 1 auto; }
+table.grid { border-collapse: collapse; font-size: 11px; }
+table.grid th, table.grid td { border: 1px solid var(--border); padding: 2px 6px;
+  white-space: nowrap; text-align: center; }
+table.grid th { position: sticky; background: #1d2130; z-index: 2; }
+table.grid thead th { top: 0; }
+table.grid tbody th { left: 0; }
+td.cell { cursor: pointer; min-width: 52px; max-width: 110px; overflow: hidden;
+  text-overflow: ellipsis; color: #dfe3ec; }
+td.cell.selected { outline: 2px solid var(--accent); outline-offset: -2px; }
+td.cell.mod-image_token { border-bottom: 2px solid #59c9a5; }
+td.cell.mod-image_boundary { border-bottom: 2px dashed #59c9a5; }
+td.cell.mod-special { border-bottom: 2px dotted #b48ef0; }
+tr.output-row th, tr.output-row td { border-top: 2px solid var(--accent); }
+#side { flex: 0 0 380px; display: flex; flex-direction: column; gap: 12px; }
+.panel { border: 1px solid var(--border); border-radius: 8px; background: var(--panel);
+  padding: 12px 14px; }
+.panel h2 { margin: 0 0 8px; font-size: 13px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .05em; }
+table.detail { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.detail td, table.detail th { padding: 2px 6px; text-align: left;
+  border-bottom: 1px solid var(--border); }
+table.detail th { color: var(--muted); font-weight: 500; }
+.tok { font-family: ui-monospace, monospace; background: #232838; border-radius: 4px;
+  padding: 0 4px; }
+.mutetext { color: var(--muted); font-size: 12px; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 12px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; word-break: break-all; }
+#tooltip { position: fixed; display: none; z-index: 10; background: #1d2130;
+  border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px;
+  font-size: 11px; max-width: 340px; pointer-events: none; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+<header>
+  <h1>OpenJSpace report — The currency of the country shaped like a boot is the</h1>
+  <div class="meta" id="runmeta"></div>
+</header>
+<div class="disclaimer" id="disclaimer"></div>
+<div class="warnings" id="warnings"></div>
+<main>
+  <div id="gridwrap"></div>
+  <div id="side">
+    <div class="panel"><h2>Selected cell</h2><div id="celldetail" class="mutetext">
+      Click a cell in the grid to inspect its top J-lens concepts.</div></div>
+    <div class="panel"><h2>Lens comparison</h2><div id="comparison" class="mutetext">—</div></div>
+    <div class="panel"><h2>Run metadata</h2><dl class="kv" id="metakv"></dl></div>
+  </div>
+</main>
+<div id="tooltip"></div>
+<script id="run-data" type="application/json">{"schema_version":1,"metadata":{"run_id":"0134e60ead3f","created_at":"2026-07-12T18:13:51+00:00","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_architecture":"Qwen2ForCausalLM","model_kind":"text","device":"cpu","dtype":"torch.float32","lens_path":"/workspace/artifacts/qwen2.5-0.5b-instruct-demo","lens_metadata":{"format_version":1,"method":"jacobian_lens","model_id":"Qwen/Qwen2.5-0.5B-Instruct","model_revision":null,"model_architecture":"Qwen2ForCausalLM","tokenizer_id":"Qwen/Qwen2.5-0.5B-Instruct","tokenizer_revision":null,"hidden_size":896,"vocab_size":151936,"n_layers":24,"source_layers":[2,4,8,12,16,20],"target_layer":23,"residual_location":"block_output","sequence_length":64,"skip_first_positions":16,"number_of_prompts":24,"number_of_valid_positions":1128,"dtype_used_for_model":"torch.float32","dtype_used_for_accumulation":"float32","fitting_dataset":"wikitext (num_prompts=24, seed=0, shard=0/1)","created_at":"2026-07-12T18:11:51+00:00","library_versions":{"python":"3.12.3","torch":"2.13.0+cpu","safetensors":"0.8.0","transformers":"5.13.1"},"notes":""},"prompt":"The currency of the country shaped like a boot is the","used_chat_template":false,"layers":[2,4,8,12,16,20,23],"top_k":10,"n_positions":1,"patch_mapping":"unavailable","disclaimer":"Jacobian-lens readouts are approximate concept readouts: corpus-averaged, linearized transports of residual-stream activations decoded through the model's own unembedding. They surface verbalizable activation directions — not literal 'thoughts' — and scores are rankings, not calibrated probabilities. Causal claims require interventions, not visualization.","warnings":[]},"positions":[{"index":0,"modality":"text","token_id":785,"token_text":"The","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":1,"modality":"text","token_id":11413,"token_text":" currency","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":2,"modality":"text","token_id":315,"token_text":" of","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":3,"modality":"text","token_id":279,"token_text":" the","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":4,"modality":"text","token_id":3146,"token_text":" country","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":5,"modality":"text","token_id":26271,"token_text":" shaped","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":6,"modality":"text","token_id":1075,"token_text":" like","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":7,"modality":"text","token_id":264,"token_text":" a","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":8,"modality":"text","token_id":10459,"token_text":" boot","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":9,"modality":"text","token_id":374,"token_text":" is","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null},{"index":10,"modality":"text","token_id":279,"token_text":" the","image_index":null,"patch_index":null,"patch_row":null,"patch_col":null}],"cells":[{"layer":2,"position":10,"jlens_top":[{"token_id":40727,"token_text":"：\"","token_display":"：\"","score":13.725187301635742,"normalized_score":1.0},{"token_id":3837,"token_text":"，","token_display":"，","score":13.664924621582031,"normalized_score":0.9975183010101318},{"token_id":58359,"token_text":"。（","token_display":"。（","score":13.548482894897461,"normalized_score":0.9927231073379517},{"token_id":1251,"token_text":" people","token_display":" people","score":12.934918403625488,"normalized_score":0.9674557447433472},{"token_id":31980,"token_text":":\r\n\r\n","token_display":":�\\n�\\n","score":12.477360725402832,"normalized_score":0.9486129879951477},{"token_id":5122,"token_text":"：","token_display":"：","score":12.418527603149414,"normalized_score":0.9461902379989624},{"token_id":1189,"token_text":".\"","token_display":".\"","score":12.35693359375,"normalized_score":0.9436537027359009},{"token_id":47891,"token_text":".\",\"","token_display":".\",\"","score":12.312962532043457,"normalized_score":0.9418428540229797},{"token_id":3015,"token_text":" water","token_display":" water","score":12.054981231689453,"normalized_score":0.9312189221382141},{"token_id":2701,"token_text":" following","token_display":" following","score":12.013896942138672,"normalized_score":0.9295270442962646}],"logit_lens_top":[{"token_id":94422,"token_text":"*sp","token_display":"*sp","score":13.20344352722168,"normalized_score":1.0},{"token_id":86560,"token_text":"*width","token_display":"*width","score":13.159631729125977,"normalized_score":0.9985238313674927},{"token_id":56504,"token_text":"').'","token_display":"').'","score":12.455137252807617,"normalized_score":0.9747865796089172},{"token_id":81339,"token_text":"*B","token_display":"*B","score":12.314390182495117,"normalized_score":0.9700442552566528},{"token_id":77285,"token_text":"*out","token_display":"*out","score":12.285476684570312,"normalized_score":0.9690700769424438},{"token_id":47542,"token_text":"tas","token_display":"tas","score":12.271209716796875,"normalized_score":0.9685893654823303},{"token_id":70485,"token_text":".fm","token_display":".fm","score":11.639984130859375,"normalized_score":0.947320818901062},{"token_id":57183,"token_text":"*))","token_display":"*))","score":11.309803009033203,"normalized_score":0.9361957311630249},{"token_id":24723,"token_text":"eway","token_display":"eway","score":11.106827735900879,"normalized_score":0.9293567538261414},{"token_id":25591,"token_text":"anding","token_display":"anding","score":10.993119239807129,"normalized_score":0.925525426864624}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.8090225563909774},"activation_norm":7.6752166748046875,"transported_norm":8.84650993347168,"is_model_output":false},{"layer":4,"position":10,"jlens_top":[{"token_id":40727,"token_text":"：\"","token_display":"：\"","score":14.447922706604004,"normalized_score":1.0},{"token_id":1189,"token_text":".\"","token_display":".\"","score":13.987192153930664,"normalized_score":0.9827877879142761},{"token_id":2974,"token_text":":\"","token_display":":\"","score":13.203007698059082,"normalized_score":0.9534919857978821},{"token_id":1251,"token_text":" people","token_display":" people","score":12.504754066467285,"normalized_score":0.927406370639801},{"token_id":13,"token_text":".","token_display":".","score":12.405599594116211,"normalized_score":0.9237020611763},{"token_id":11,"token_text":",","token_display":",","score":12.348955154418945,"normalized_score":0.9215859174728394},{"token_id":2701,"token_text":" following","token_display":" following","score":12.343448638916016,"normalized_score":0.9213802814483643},{"token_id":1616,"token_text":" way","token_display":" way","score":12.287717819213867,"normalized_score":0.9192981719970703},{"token_id":1335,"token_text":",\"","token_display":",\"","score":12.2676420211792,"normalized_score":0.9185482263565063},{"token_id":47542,"token_text":"tas","token_display":"tas","score":12.11547565460205,"normalized_score":0.912863552570343}],"logit_lens_top":[{"token_id":61533,"token_text":".dds","token_display":".dds","score":10.271730422973633,"normalized_score":1.0},{"token_id":47542,"token_text":"tas","token_display":"tas","score":9.857844352722168,"normalized_score":0.985399603843689},{"token_id":59306,"token_text":" toughest","token_display":" toughest","score":9.798333168029785,"normalized_score":0.9833002090454102},{"token_id":81757,"token_text":"GEST","token_display":"GEST","score":9.44511604309082,"normalized_score":0.9708399772644043},{"token_id":86560,"token_text":"*width","token_display":"*width","score":9.399106979370117,"normalized_score":0.9692169427871704},{"token_id":31235,"token_text":"最","token_display":"最","score":9.263588905334473,"normalized_score":0.9644363522529602},{"token_id":91523,"token_text":" mRecyclerView","token_display":" mRecyclerView","score":9.23499584197998,"normalized_score":0.963427722454071},{"token_id":29365,"token_text":"SEL","token_display":"SEL","score":9.148768424987793,"normalized_score":0.9603859186172485},{"token_id":94847,"token_text":"mvc","token_display":"mvc","score":9.129315376281738,"normalized_score":0.9596996307373047},{"token_id":75791,"token_text":"_trees","token_display":"_trees","score":9.015477180480957,"normalized_score":0.9556838274002075}],"comparison":{"topk_overlap":0.1,"rank_correlation":-0.6245614035087718},"activation_norm":9.945460319519043,"transported_norm":10.511213302612305,"is_model_output":false},{"layer":8,"position":10,"jlens_top":[{"token_id":16301,"token_text":" mountain","token_display":" mountain","score":12.156038284301758,"normalized_score":1.0},{"token_id":29234,"token_text":" NATO","token_display":" NATO","score":12.044517517089844,"normalized_score":0.9946215152740479},{"token_id":19458,"token_text":" Latin","token_display":" Latin","score":11.879197120666504,"normalized_score":0.986648440361023},{"token_id":1879,"token_text":" world","token_display":" world","score":11.698893547058105,"normalized_score":0.9779525995254517},{"token_id":59946,"token_text":".\"[","token_display":".\"[","score":11.603769302368164,"normalized_score":0.9733650088310242},{"token_id":23631,"token_text":" centuries","token_display":" centuries","score":11.561843872070312,"normalized_score":0.9713429808616638},{"token_id":7214,"token_text":" foreign","token_display":" foreign","score":11.547200202941895,"normalized_score":0.970636785030365},{"token_id":16675,"token_text":" nations","token_display":" nations","score":11.540160179138184,"normalized_score":0.9702971577644348},{"token_id":6995,"token_text":" nation","token_display":" nation","score":11.508339881896973,"normalized_score":0.9687626361846924},{"token_id":5837,"token_text":" countries","token_display":" countries","score":11.501106262207031,"normalized_score":0.9684137105941772}],"logit_lens_top":[{"token_id":75554,"token_text":" blackColor","token_display":" blackColor","score":12.104541778564453,"normalized_score":1.0},{"token_id":45281,"token_text":" whiteColor","token_display":" whiteColor","score":12.003681182861328,"normalized_score":0.9970528483390808},{"token_id":25137,"token_text":"ISTS","token_display":"ISTS","score":10.863709449768066,"normalized_score":0.9637428522109985},{"token_id":9507,"token_text":"sel","token_display":"sel","score":10.73013973236084,"normalized_score":0.9598398804664612},{"token_id":15717,"token_text":"merican","token_display":"merican","score":10.683826446533203,"normalized_score":0.9584866166114807},{"token_id":25591,"token_text":"anding","token_display":"anding","score":10.613961219787598,"normalized_score":0.9564452171325684},{"token_id":51322,"token_text":"Outer","token_display":"Outer","score":10.6034574508667,"normalized_score":0.9561382532119751},{"token_id":28273,"token_text":" sorting","token_display":" sorting","score":10.557454109191895,"normalized_score":0.9547940492630005},{"token_id":68908,"token_text":"*/)","token_display":"*/)","score":10.425272941589355,"normalized_score":0.9509316682815552},{"token_id":91523,"token_text":" mRecyclerView","token_display":" mRecyclerView","score":10.390932083129883,"normalized_score":0.9499282240867615}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.7518796992481203},"activation_norm":12.603546142578125,"transported_norm":16.05986213684082,"is_model_output":false},{"layer":12,"position":10,"jlens_top":[{"token_id":78715,"token_text":" UEFA","token_display":" UEFA","score":12.361108779907227,"normalized_score":1.0},{"token_id":67926,"token_text":" multinational","token_display":" multinational","score":12.308451652526855,"normalized_score":0.9977132678031921},{"token_id":69506,"token_text":" Belarus","token_display":" Belarus","score":11.642379760742188,"normalized_score":0.9687869548797607},{"token_id":8359,"token_text":" Russia","token_display":" Russia","score":11.556747436523438,"normalized_score":0.9650681018829346},{"token_id":5429,"token_text":" Republic","token_display":" Republic","score":11.488144874572754,"normalized_score":0.9620888233184814},{"token_id":29234,"token_text":" NATO","token_display":" NATO","score":11.36907958984375,"normalized_score":0.9569180607795715},{"token_id":16663,"token_text":" Pakistan","token_display":" Pakistan","score":11.36791706085205,"normalized_score":0.956867516040802},{"token_id":5159,"token_text":" America","token_display":" America","score":11.364604949951172,"normalized_score":0.9567237496376038},{"token_id":72437,"token_text":" Kazakhstan","token_display":" Kazakhstan","score":11.218388557434082,"normalized_score":0.9503737688064575},{"token_id":15154,"token_text":" Spanish","token_display":" Spanish","score":11.135747909545898,"normalized_score":0.9467849135398865}],"logit_lens_top":[{"token_id":30743,"token_text":" ____","token_display":" ____","score":9.6351900100708,"normalized_score":1.0},{"token_id":95131,"token_text":"bearer","token_display":"bearer","score":8.883090019226074,"normalized_score":0.9764801859855652},{"token_id":76857,"token_text":"abbreviation","token_display":"abbreviation","score":8.822551727294922,"normalized_score":0.974587082862854},{"token_id":2130,"token_text":"____","token_display":"____","score":8.717703819274902,"normalized_score":0.9713082313537598},{"token_id":100978,"token_text":"朵","token_display":"朵","score":8.716806411743164,"normalized_score":0.9712801575660706},{"token_id":220,"token_text":" ","token_display":" ","score":8.624475479125977,"normalized_score":0.9683927893638611},{"token_id":51860,"token_text":"INATION","token_display":"INATION","score":8.565746307373047,"normalized_score":0.966556191444397},{"token_id":47379,"token_text":"��","token_display":"��","score":8.528804779052734,"normalized_score":0.9654009938240051},{"token_id":9507,"token_text":"sel","token_display":"sel","score":8.467020988464355,"normalized_score":0.9634688496589661},{"token_id":1304,"token_text":" __","token_display":" __","score":8.42344856262207,"normalized_score":0.9621062874794006}],"comparison":{"topk_overlap":0.0,"rank_correlation":-0.6466165413533834},"activation_norm":15.447677612304688,"transported_norm":20.493501663208008,"is_model_output":false},{"layer":16,"position":10,"jlens_top":[{"token_id":2130,"token_text":"____","token_display":"____","score":20.659730911254883,"normalized_score":1.0},{"token_id":26850,"token_text":"？\n\n","token_display":"？\\n\\n","score":19.87984848022461,"normalized_score":0.9750179648399353},{"token_id":15973,"token_text":"currency","token_display":"currency","score":18.501100540161133,"normalized_score":0.9308525323867798},{"token_id":94432,"token_text":"？\n","token_display":"？\\n","score":17.995574951171875,"normalized_score":0.9146589636802673},{"token_id":28453,"token_text":" Currency","token_display":" Currency","score":17.597854614257812,"normalized_score":0.9019187688827515},{"token_id":94753,"token_text":"(___","token_display":"(___","score":17.215068817138672,"normalized_score":0.8896570205688477},{"token_id":30743,"token_text":" ____","token_display":" ____","score":17.17138671875,"normalized_score":0.8882577419281006},{"token_id":11413,"token_text":" currency","token_display":" currency","score":17.159751892089844,"normalized_score":0.8878850340843201},{"token_id":80517,"token_text":"_____","token_display":"_____","score":17.113187789916992,"normalized_score":0.8863934874534607},{"token_id":48443,"token_text":"：\n\n","token_display":"：\\n\\n","score":16.754484176635742,"normalized_score":0.87490314245224}],"logit_lens_top":[{"token_id":2130,"token_text":"____","token_display":"____","score":15.934932708740234,"normalized_score":1.0},{"token_id":30743,"token_text":" ____","token_display":" ____","score":14.143322944641113,"normalized_score":0.9498490691184998},{"token_id":1304,"token_text":" __","token_display":" __","score":14.005697250366211,"normalized_score":0.9459965825080872},{"token_id":32671,"token_text":" ______","token_display":" ______","score":12.075926780700684,"normalized_score":0.8919783234596252},{"token_id":7436,"token_text":" ___","token_display":" ___","score":10.705862045288086,"normalized_score":0.8536273241043091},{"token_id":65892,"token_text":" _____","token_display":" _____","score":10.688064575195312,"normalized_score":0.8531291484832764},{"token_id":3979,"token_text":"________","token_display":"________","score":10.620450019836426,"normalized_score":0.8512364625930786},{"token_id":220,"token_text":" ","token_display":" ","score":10.38970947265625,"normalized_score":0.8447775840759277},{"token_id":5973,"token_text":"___","token_display":"___","score":10.191328048706055,"normalized_score":0.8392244577407837},{"token_id":99908,"token_text":"苏","token_display":"苏","score":9.953123092651367,"normalized_score":0.8325566053390503}],"comparison":{"topk_overlap":0.2,"rank_correlation":-0.27347781217750256},"activation_norm":22.636137008666992,"transported_norm":28.15494155883789,"is_model_output":false},{"layer":20,"position":10,"jlens_top":[{"token_id":11413,"token_text":" currency","token_display":" currency","score":19.332889556884766,"normalized_score":1.0},{"token_id":17692,"token_text":" dollar","token_display":" dollar","score":17.670228958129883,"normalized_score":0.9486912488937378},{"token_id":17672,"token_text":" euro","token_display":" euro","score":16.760278701782227,"normalized_score":0.9206106662750244},{"token_id":2130,"token_text":"____","token_display":"____","score":16.288114547729492,"normalized_score":0.9060399532318115},{"token_id":101406,"token_text":"货币","token_display":"货币","score":15.829730033874512,"normalized_score":0.8918944001197815},{"token_id":1304,"token_text":" __","token_display":" __","score":15.72191047668457,"normalized_score":0.8885672092437744},{"token_id":11192,"token_text":" dollars","token_display":" dollars","score":15.597342491149902,"normalized_score":0.8847230672836304},{"token_id":42364,"token_text":" Dollar","token_display":" Dollar","score":15.552753448486328,"normalized_score":0.8833470344543457},{"token_id":30743,"token_text":" ____","token_display":" ____","score":15.548980712890625,"normalized_score":0.8832306265830994},{"token_id":28453,"token_text":" Currency","token_display":" Currency","score":15.388017654418945,"normalized_score":0.8782634139060974}],"logit_lens_top":[{"token_id":101406,"token_text":"货币","token_display":"货币","score":16.565587997436523,"normalized_score":1.0},{"token_id":11413,"token_text":" currency","token_display":" currency","score":15.6491117477417,"normalized_score":0.9629268050193787},{"token_id":15973,"token_text":"currency","token_display":"currency","score":15.310757637023926,"normalized_score":0.9492397308349609},{"token_id":11192,"token_text":" dollars","token_display":" dollars","score":15.121999740600586,"normalized_score":0.9416040778160095},{"token_id":35602,"token_text":" currencies","token_display":" currencies","score":15.117208480834961,"normalized_score":0.9414103031158447},{"token_id":104142,"token_text":"人民币","token_display":"人民币","score":14.42655086517334,"normalized_score":0.9134718775749207},{"token_id":41089,"token_text":"__$","token_display":"__$","score":14.333842277526855,"normalized_score":0.9097216725349426},{"token_id":99024,"token_text":"$__","token_display":"$__","score":14.141098022460938,"normalized_score":0.9019248485565186},{"token_id":26321,"token_text":"Currency","token_display":"Currency","score":14.07220458984375,"normalized_score":0.8991379737854004},{"token_id":34710,"token_text":"_currency","token_display":"_currency","score":14.045817375183105,"normalized_score":0.8980705142021179}],"comparison":{"topk_overlap":0.3,"rank_correlation":-0.12745098039215688},"activation_norm":46.74904251098633,"transported_norm":56.40637969970703,"is_model_output":false},{"layer":23,"position":10,"jlens_top":[{"token_id":320,"token_text":" (","token_display":" (","score":11.355467796325684,"normalized_score":1.0},{"token_id":30743,"token_text":" ____","token_display":" ____","score":11.220878601074219,"normalized_score":0.9949568510055542},{"token_id":1304,"token_text":" __","token_display":" __","score":10.8245849609375,"normalized_score":0.9801076054573059},{"token_id":34983,"token_text":" Brazilian","token_display":" Brazilian","score":10.734359741210938,"normalized_score":0.9767268300056458},{"token_id":7748,"token_text":" Indian","token_display":" Indian","score":10.40737247467041,"normalized_score":0.9644744992256165},{"token_id":23279,"token_text":" Mexican","token_display":" Mexican","score":10.33484172821045,"normalized_score":0.9617568254470825},{"token_id":56181,"token_text":" Philippine","token_display":" Philippine","score":10.245439529418945,"normalized_score":0.9584068655967712},{"token_id":17672,"token_text":" euro","token_display":" euro","score":10.2064790725708,"normalized_score":0.9569469690322876},{"token_id":198,"token_text":"\n","token_display":"\\n","score":10.131096839904785,"normalized_score":0.9541223645210266},{"token_id":4882,"token_text":" South","token_display":" South","score":10.117501258850098,"normalized_score":0.9536129236221313}],"logit_lens_top":[{"token_id":320,"token_text":" (","token_display":" (","score":11.355467796325684,"normalized_score":1.0},{"token_id":30743,"token_text":" ____","token_display":" ____","score":11.220878601074219,"normalized_score":0.9949568510055542},{"token_id":1304,"token_text":" __","token_display":" __","score":10.8245849609375,"normalized_score":0.9801076054573059},{"token_id":34983,"token_text":" Brazilian","token_display":" Brazilian","score":10.734359741210938,"normalized_score":0.9767268300056458},{"token_id":7748,"token_text":" Indian","token_display":" Indian","score":10.40737247467041,"normalized_score":0.9644744992256165},{"token_id":23279,"token_text":" Mexican","token_display":" Mexican","score":10.33484172821045,"normalized_score":0.9617568254470825},{"token_id":56181,"token_text":" Philippine","token_display":" Philippine","score":10.245439529418945,"normalized_score":0.9584068655967712},{"token_id":17672,"token_text":" euro","token_display":" euro","score":10.2064790725708,"normalized_score":0.9569469690322876},{"token_id":198,"token_text":"\n","token_display":"\\n","score":10.131096839904785,"normalized_score":0.9541223645210266},{"token_id":4882,"token_text":" South","token_display":" South","score":10.117501258850098,"normalized_score":0.9536129236221313}],"comparison":{"topk_overlap":1.0,"rank_correlation":1.0},"activation_norm":68.80631256103516,"transported_norm":68.80631256103516,"is_model_output":true}],"tracked":[],"decompositions":[],"images":[]}</script>
+<script>
+"use strict";
+const RUN = JSON.parse(document.getElementById("run-data").textContent);
+const meta = RUN.metadata;
+const cells = new Map();
+for (const c of RUN.cells) cells.set(c.layer + ":" + c.position, c);
+const positions = [...new Set(RUN.cells.map(c => c.position))].sort((a, b) => a - b);
+const layers = [...new Set(RUN.cells.map(c => c.layer))].sort((a, b) => b - a);
+const posInfo = new Map(RUN.positions.map(p => [p.index, p]));
+
+document.getElementById("runmeta").textContent =
+  `model ${meta.model_id} · ${meta.layers.length} layers × ${meta.n_positions} positions · ` +
+  `top-${meta.top_k} · ${meta.created_at}`;
+document.getElementById("disclaimer").textContent = meta.disclaimer;
+document.getElementById("warnings").innerHTML =
+  (meta.warnings || []).map(w => "⚠ " + escapeHtml(w)).join("<br>");
+
+const kv = document.getElementById("metakv");
+const lm = meta.lens_metadata || {};
+for (const [k, v] of [["prompt", meta.prompt], ["run id", meta.run_id],
+  ["device", meta.device], ["dtype", meta.dtype], ["lens", meta.lens_path],
+  ["fit prompts", lm.number_of_prompts], ["residual location", lm.residual_location],
+  ["patch mapping", meta.patch_mapping]]) {
+  if (v === undefined || v === "") continue;
+  const dt = document.createElement("dt"); dt.textContent = k;
+  const dd = document.createElement("dd"); dd.textContent = String(v);
+  kv.append(dt, dd);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+}
+function heat(score) {
+  const s = Math.max(0, Math.min(1, score));
+  return `rgba(110,168,254,${(0.06 + 0.5 * s).toFixed(3)})`;
+}
+
+const wrap = document.getElementById("gridwrap");
+const table = document.createElement("table");
+table.className = "grid";
+const thead = document.createElement("thead");
+const hrow = document.createElement("tr");
+hrow.appendChild(document.createElement("th")).textContent = "layer \\\\ pos";
+for (const p of positions) {
+  const info = posInfo.get(p);
+  const th = document.createElement("th");
+  th.textContent = `${p}\u00A0${info && info.token_text ? info.token_text.trim() || "·" : ""}`;
+  th.title = info ? `${info.modality} token ${info.token_id}` : "";
+  hrow.appendChild(th);
+}
+thead.appendChild(hrow); table.appendChild(thead);
+const tbody = document.createElement("tbody");
+for (const layer of layers) {
+  const tr = document.createElement("tr");
+  const anyCell = cells.get(layer + ":" + positions[0]);
+  const isOutput = anyCell && anyCell.is_model_output;
+  if (isOutput) tr.className = "output-row";
+  const th = document.createElement("th");
+  th.textContent = isOutput ? `L${layer} (output)` : `L${layer}`;
+  tr.appendChild(th);
+  for (const p of positions) {
+    const cell = cells.get(layer + ":" + p);
+    const td = document.createElement("td");
+    td.className = "cell";
+    if (cell) {
+      const top = cell.jlens_top[0];
+      const info = posInfo.get(p);
+      if (info) td.classList.add("mod-" + info.modality);
+      td.textContent = top ? (top.token_display.trim() || "·") : "";
+      td.style.background = top ? heat(top.normalized_score) : "transparent";
+      td.addEventListener("click", () => select(layer, p, td));
+      td.addEventListener("mousemove", e => showTip(e, cell, info));
+      td.addEventListener("mouseleave", hideTip);
+    }
+    tr.appendChild(td);
+  }
+  tbody.appendChild(tr);
+}
+table.appendChild(tbody); wrap.appendChild(table);
+
+const tip = document.getElementById("tooltip");
+function showTip(e, cell, info) {
+  const rows = cell.jlens_top.slice(0, 10).map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.score.toFixed(2)}</td></tr>`).join("");
+  tip.innerHTML =
+    `<b>L${cell.layer} · pos ${cell.position}</b>` +
+    (info ? ` · ${info.modality} · source <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    `<br>‖h‖=${cell.activation_norm.toFixed(1)} ‖Jh‖=${cell.transported_norm.toFixed(1)}` +
+    `<table class="detail"><tr><th>#</th><th>top J-lens concepts</th><th>lens score</th></tr>${rows}</table>`;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + "px";
+  tip.style.top = Math.min(e.clientY + 14, innerHeight - 260) + "px";
+}
+function hideTip() { tip.style.display = "none"; }
+
+let selectedTd = null;
+function select(layer, pos, td) {
+  if (selectedTd) selectedTd.classList.remove("selected");
+  selectedTd = td; td.classList.add("selected");
+  const cell = cells.get(layer + ":" + pos);
+  const info = posInfo.get(pos);
+  const mk = (entries) => entries.map((t, i) =>
+    `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+    `<td>${t.token_id}</td><td>${t.score.toFixed(2)}</td>` +
+    `<td>${t.normalized_score.toFixed(2)}</td></tr>`).join("");
+  document.getElementById("celldetail").innerHTML =
+    `<div class="mutetext">L${layer} · position ${pos}` +
+    (info ? ` · ${info.modality} · source token <span class="tok">${escapeHtml(info.token_text || "")}</span>` : "") +
+    (cell.is_model_output ? " · <b>model output distribution</b>" : "") + `</div>` +
+    `<table class="detail"><tr><th>#</th><th>concept</th><th>id</th><th>lens score</th><th>norm.</th></tr>` +
+    mk(cell.jlens_top) + `</table>`;
+  const cmp = cell.comparison || {};
+  document.getElementById("comparison").innerHTML =
+    (cell.is_model_output
+      ? `<div class="mutetext">Final layer: J-lens row equals the model output.</div>`
+      : `<div class="mutetext">top-${meta.top_k} overlap ` +
+        `<b>${(cmp.topk_overlap ?? 0).toFixed(2)}</b> · rank corr ` +
+        `<b>${(cmp.rank_correlation ?? 0).toFixed(2)}</b></div>`) +
+    `<table class="detail"><tr><th>#</th><th>logit-lens concept</th><th>score</th></tr>` +
+    cell.logit_lens_top.slice(0, 10).map((t, i) =>
+      `<tr><td>${i + 1}</td><td class="tok">${escapeHtml(t.token_display)}</td>` +
+      `<td>${t.score.toFixed(2)}</td></tr>`).join("") + `</table>`;
+}
+</script>
+</body>
+</html>
