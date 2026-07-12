@@ -52,20 +52,33 @@ pip install -e ".[datasets]"     # optional: stream WikiText for fitting
 pip install torchvision          # optional: required only for SmolVLM images
 ```
 
-The web UI is prebuilt into `web/dist`. To rebuild it (Node 18+):
+The web UI is a separate one-time build (Node 18+). `openjspace serve` works
+without it (it serves the API plus a fallback page); build the React app once to
+get the full interface:
 
 ```bash
-cd web && npm install && npm run build
+cd web && npm install && npm run build && cd ..
 ```
 
-## Quick start (one command)
+## Quick start
 
 The repository ships a small demo lens for `Qwen/Qwen2.5-0.5B-Instruct`
-(`artifacts/qwen2.5-0.5b-instruct-demo`), so you can launch the UI and inspect a
-prompt immediately:
+(`artifacts/qwen2.5-0.5b-instruct-demo`), so you can inspect a prompt
+immediately without fitting anything. Using the CLI (no web build required):
 
 ```bash
-openjspace serve            # then open http://127.0.0.1:8000
+openjspace inspect \
+  --model Qwen/Qwen2.5-0.5B-Instruct \
+  --lens artifacts/qwen2.5-0.5b-instruct-demo \
+  --prompt "The capital of France is" --positions last:1 \
+  --output runs/quickstart
+open runs/quickstart/report.html      # self-contained HTML report
+```
+
+Or launch the web UI (after the one-time `npm run build` above):
+
+```bash
+openjspace serve                      # then open http://127.0.0.1:8000
 ```
 
 Enter model `Qwen/Qwen2.5-0.5B-Instruct`, select the bundled lens, type a
