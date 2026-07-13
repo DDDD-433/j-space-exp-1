@@ -1,0 +1,19 @@
+OpenJSpace
+Copyright 2026 The OpenJSpace Authors
+
+This product includes software developed at Anthropic PBC.
+
+Portions of this software (in particular the Jacobian-lens fitting estimator,
+the activation-recording hook strategy, the count-weighted lens merge
+semantics in src/openjspace/core/, and the tiny analytic test model in
+src/openjspace/models/tiny.py) are derived from the reference implementation:
+
+    jlens — Jacobian lens
+    https://github.com/anthropics/jacobian-lens
+    Copyright 2026 Anthropic PBC
+    Licensed under the Apache License, Version 2.0
+
+Companion code for "Verbalizable Representations Form a Global Workspace in
+Language Models" (https://transformer-circuits.pub/2026/workspace/index.html).
+
+Files containing derived code carry an SPDX header noting the derivation.

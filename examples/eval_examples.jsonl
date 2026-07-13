@@ -1,0 +1,8 @@
+{"slug": "spider-legs", "description": "Implicit entity resolution: the web-spinning animal is a spider (8 legs)", "prompt": "The animal that spins webs has this many legs:", "expected_concepts": ["eight", "8", "spider"]}
+{"slug": "boot-country-currency", "description": "Geographic multi-hop: boot-shaped country = Italy, currency = euro", "prompt": "The currency of the country shaped like a boot is the", "expected_concepts": ["euro", "lira"]}
+{"slug": "capital-france", "description": "Simple factual recall: capital of France", "prompt": "The capital of France is", "expected_concepts": ["Paris"]}
+{"slug": "multi-hop-author", "description": "Multi-hop: play Romeo and Juliet -> author Shakespeare -> nationality English", "prompt": "The author of Romeo and Juliet was born in the country of", "expected_concepts": ["England", "English"]}
+{"slug": "arithmetic-intermediate", "description": "Arithmetic intermediate: 7 times 8", "prompt": "Seven multiplied by eight equals", "expected_concepts": ["56", "fifty"]}
+{"slug": "opposite-hot", "description": "Antonym retrieval", "prompt": "The opposite of hot is", "expected_concepts": ["cold"]}
+{"slug": "code-bug", "description": "Short code: off-by-one / wrong operator recognition", "prompt": "# This Python function is supposed to return the sum of a and b.\ndef add(a, b):\n    return a - b\n# The bug is that it uses the wrong", "expected_concepts": ["operator", "minus", "subtraction", "sign"]}
+{"slug": "sky-color", "description": "Commonsense association", "prompt": "On a clear day, the color of the sky is", "expected_concepts": ["blue"]}

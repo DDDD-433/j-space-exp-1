@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+web/dist/
+
+# OpenJSpace artifacts and runs (local outputs)
+artifacts/
+runs/
+.openjspace/
+
+# Netlify
+.netlify
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
